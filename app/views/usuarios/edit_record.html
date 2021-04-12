@@ -41,7 +41,7 @@
                     <div class="form-group">
                         <label>Perfil <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['perfil'].$touched && formRecord['perfil'].$invalid)"> C. requerido.</span></label>
                         <select class="form-control m-b" ng-model="selectedProfile" name="perfil">
-                            <option ng-selected="p.id == $root.formEdit.perfil.id"  ng-repeat="p in perfils" value="{{p.id}}">{{p.perfil}}</option>
+                            <option ng-selected="p.id == $root.formEdit.perfil.id"  ng-repeat="p in perfils" value="{{p.id}}">{{p.nombre}}</option>
                          </select>
                     </div>
                 </div>
