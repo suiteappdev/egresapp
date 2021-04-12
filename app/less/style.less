@@ -1,0 +1,122 @@
+// Import Google font
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&lang=en);
+
+// Color list
+@color-navy-blue:#34495e;
+@color-violet:#9b59b6;
+@color-blue:#3498db;
+@color-green:#62cb31;
+@color-yellow:#ffb606;
+@color-orange:#e67e22;
+@color-red:#e74c3c;
+@color-red-deep:#c0392b;
+
+// Additional colors
+@color-text: #6a6c6f;
+@color-bright: #f7f9fa;
+@color-background: #f1f3f6;
+@color-background-boxed: lighten(@color-background, 3%);
+@border-color: #e4e5e7;
+
+// Additional variables
+@menu-width: 180px;
+@main-transition: all 0.1s ease-out 0s;
+
+
+// Import all styles
+@import "margins.less";
+@import "alerts.less";
+@import "modal.less";
+@import "progress_bar.less";
+@import "login.less";
+@import "timeline.less";
+@import "contact.less";
+@import "calendar.less";
+@import "text_editor.less";
+@import "grid.less";
+@import "dropdown.less";
+@import "chat.less";
+@import "buttons.less";
+@import "fonts.less";
+@import "icheck.less";
+@import "layout.less";
+@import "lists.less";
+@import "panels.less";
+@import "tabs.less";
+@import "tooltip.less";
+@import "various.less";
+//@import "base.less";
+@import "projects.less";
+@import "social_board.less";
+@import "nestable_list.less";
+@import "tour.less";
+@import "blog.less";
+@import "forum.less";
+@import "text.less";
+//@import "wizard.less";
+@import "mailbox.less";
+
+// Styles for landing page
+@import "landing.less";
+
+.ui-select-multiple.ui-select-bootstrap input.ui-select-search {
+    background-color: transparent!important;
+    font-size: 14px;
+    border: none;
+    outline: 0;
+    height: 1.666666em;
+    margin-bottom: 3px;
+}
+
+.ui-select-multiple.ui-select-bootstrap {
+    height: auto;
+    padding: 6px 6px 0;
+}
+
+.font-mini{
+    font-size: 10px;
+}
+
+.action-btns{
+    display: flex;
+    justify-content: space-between;
+}
+
+.action-btns .btn{
+  margin-right: 4px;
+}
+
+.capitilize{
+    text-transform: capitalize;
+}
+
+.flex-right{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+tbody td {
+    cursor: pointer;
+}
+
+.color-line {
+    background: #f7f9fa;
+    height: 6px;
+    background-image: -webkit-linear-gradient(left,#34495e,#34495e 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+    background-image: -moz-linear-gradient(left,#34495e,#34495e 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+    background-image: -ms-linear-gradient(left,#34495e,#34495e 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+    background-image: linear-gradient(to right,#34495e,#34495e 25%,#9b59b6 25%,#9b59b6 35%,#3498db 35%,#3498db 45%,#62cb31 45%,#62cb31 55%,#ffb606 55%,#ffb606 65%,#e67e22 65%,#e67e22 75%,#e74c3c 85%,#e74c3c 85%,#c0392b 85%,#c0392b 100%);
+    background-size: 100% 6px;
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+}
+
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+    background-color: #3f5872;
+    border-color: #3f5872;
+    color: #fff;
+    cursor: default;
+    z-index: 2;
+}
+
+

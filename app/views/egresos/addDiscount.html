@@ -1,0 +1,57 @@
+<div class="inmodal">
+    <div class="color-line"></div>
+    <div class="modal-header">
+        <h4 class="modal-title">Descuentos</h4>
+    </div>
+    <div class="modal-body row">
+        <div class="col-lg-12 text-right">
+            <button type="button" ng-click="addDiscountRow()" class="m-b m-t btn btn-primary" ><i class="fa fa-plus"></i> Agregar</button>
+        </div>
+            <div class="hpanel">
+                <div class="panel-heading">
+                    <div panel-tools></div>
+                    Tabla de aplicación de descuentos
+                </div>
+                <div class="panel-body list" >
+                    <div class="table-responsive project-list">
+                        <table class="table table-striped" ng-show="$root.discountTable.length > 0">
+                            <thead>
+                            <tr>
+                                <th colspan="2">Activo</th>
+                                <th>Observación</th>
+                                <th>Valor</th>
+                                <th>Porcentaje</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="discount in $root.discountTable" >
+                                <td><input icheck type="checkbox" ng-model="discount.active"></td>
+                                <td>
+                                </td>
+                                <td>
+                                <div class="col-md-12">
+                                    <select class="form-control" ng-model="discount.observacion"  name="Categoria" required>
+                                        <option>-- Observación --</option>
+                                        <option ng-repeat="descuento in descuentos" value="{{descuento._id}}">{{descuento.descripcion}}</option>
+                                    </select>
+                                </div>
+                                </td>
+                                <td>
+                                    <input type="number" id="currency-{{$index}}"  ng-change="calc('$')" ng-model="discount.currency" placeholder="Valor $" class="form-control input-sm">
+                                </td>
+                                <td>
+                                    <input type="number" id="percent-{{$index}}" min="0" max="100" ng-change="calc('%')" ng-model="discount.percent" placeholder="Valor %" class="form-control input-sm">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="$close()">Cerrar</button>
+        <button type="button" class="btn btn-primary" ng-click="applyDiscount()">Aplicar</button>
+
+    </div>
+</div>

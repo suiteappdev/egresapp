@@ -1,0 +1,91 @@
+<div class="inmodal">
+    <div class="color-line"></div>
+    <div class="modal-header">
+        <h4 class="modal-title">Filtros</h4>
+    </div>
+    <div class="modal-body row">
+        <div class="col-lg-12 row" style="display: flex;align-items: center;">
+            <div class="col-lg-4">
+                <label>Categoria</label>
+                <select class="form-control m-b" ng-model="form.data.categoria"  name="Categoria" required>
+                    <option value="">-- Categoria --</option>
+                    <option ng-repeat="categoria in categorias" value="{{categoria._id}}">{{categoria.descripcioncat}}</option>
+                 </select>
+            </div>
+            <div class="col-lg-6" style="padding-bottom: 15px;">
+                <label>Tercero</label>
+                <ui-select ng-model="form.data.tercero" name="Tercero" ng-required="true" theme="bootstrap">
+                    <ui-select-match placeholder="Seleccionar tercero">{{$select.selected.nombre}}</ui-select-match>
+                    <ui-select-choices repeat="tercero in terceros | propsFilter: {nombre: $select.search, email: $select.search}">
+                        <div ng-bind-html="tercero.nombre | highlight: $select.search"></div>
+                            Nombre: {{tercero.nombre}}
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            
+            <div class="col-lg-2">
+                <button type="button" class="btn btn-primary" ng-click="query()">Consultar</button>
+            </div>
+        </div>
+        <div class="col-lg-12 text-center" ng-show="(!records || records.length == 0)">
+            <div class="alert alert-warning">
+                <i class="fa fa-bolt"></i> Sin resultado
+            </div>
+        </div>
+        <div class="col-lg-12 text-center" ng-show="loading">
+            <img src="images/loading-bars.svg" width="50" height="50">
+        </div>
+        <div class="hpanel" ng-show="(records && records.length > 0)">
+            <div class="panel-heading">
+                <div panel-tools></div>
+                Listado de egresos por año
+            </div>
+            <div class="panel-body list">
+
+                <div class="table-responsive project-list">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Tercero</th>
+                            <th>Ene</th>
+                            <th>Feb</th>
+                            <th>Mar</th>
+                            <th>Abr</th>
+                            <th>May</th>
+                            <th>Jun</th>
+                            <th>Jul</th>
+                            <th>Ago</th>
+                            <th>Sep</th>
+                            <th>Oct</th>
+                            <th>Nov</th>
+                            <th>Dic</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="record in records" >
+                            <td>{{record.tercero}}</td>
+                            <td>{{record.ene}}</td>
+                            <td>{{record.feb}}</td>
+                            <td>{{record.mar}}</td>
+                            <td>{{record.abr}}</td>
+                            <td>{{record.may}}</td>
+                            <td>{{record.jun}}</td>
+                            <td>{{record.jul}}</td>
+                            <td>{{record.ago}}</td>
+                            <td>{{record.sep}}</td>
+                            <td>{{record.oct}}</td>
+                            <td>{{record.nov}}</td>
+                            <td>{{record.dic}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="$close()">Cerrar</button>
+        <button type="button" class="btn btn-primary" ng-click="report()">Ver</button>
+
+    </div>
+</div>

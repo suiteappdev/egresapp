@@ -1,0 +1,32 @@
+<div class="col-lg-12" ng-init="load();">
+    <div>
+        <button class="btn btn-primary pull-right m-b" ng-click="new_admin()"><i class="fa fa-plus"></i> New {{role.display_name}}</button>
+    </div>
+</div>
+<div class="col-lg-3" ng-repeat="user in users">
+    <div class="hpanel hblue contact-panel">
+        <div class="panel-body">
+                <div class="dropdown" dropdown >
+                    <a style="font-size: 24px;position: relative;top: -16px;" dropdown-toggle class="dropdown-toggle" href="#"><i class="pe-7s-more pull-right"></i></a>
+                    <ul class="dropdown-menu m-t-xs" style="position: absolute;top: 0px;left: 177px;">
+                        <li><a ng-click="edit_admin()">Edit</a></li>
+                        <li class="divider"></li>
+                        <li><a ng-click="delete()" >Delete</a></li>
+                    </ul>
+                </div>
+            <img alt="logo" class="img-circle m-b" src="images/profile.jpg">
+            <h3><a href="">{{user.metadata.first_name}}. </a></h3>
+            <div class="text-muted font-bold m-b-xs">{{user.metadata.email || 'no definido'}}</div>
+            <p>
+              {{user.person.goal_type}}
+            </p>
+        </div>
+        <div class="panel-footer contact-footer">
+            <div class="row">
+                <div class="col-md-4 border-right" style=""> <div class="contact-stat"><span>Goal: </span> <strong>{{user.person.goal_num || 'no definido'}}</strong></div> </div>
+                <div class="col-md-4 border-right" style=""> <div class="contact-stat"><span>Managers: </span> <strong>300</strong></div> </div>
+                <div class="col-md-4" style=""> <div class="contact-stat"><span>Records: </span> <strong>100k</strong></div> </div>
+            </div>
+        </div>
+    </div>
+</div>

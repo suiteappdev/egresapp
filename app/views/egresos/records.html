@@ -1,0 +1,133 @@
+<div class="col-lg-12" ng-show="($root.egresos.length > 0)">
+    <div class="hpanel">
+        <div class="panel-body">
+            <h3>Listado de egresos<span class="pull-right"><div class="list-item-container">
+                <div class="list-item">
+                    <h3 class="no-margins font-extra-bold text-success">{{saldoEgresos.total_finalizado  | currency:"$"}}</h3>
+                    <small>Finalizados</small>
+                </div>
+                <br />
+                <div class="list-item">
+                    <h3 class="no-margins font-extra-bold text-color3">{{saldoEgresos.total_pendiente | currency:"$"}}</h3>
+                    <small>Pendientes</small>
+                </div>
+            </div></span></h3>
+            <p>Puedes crear modificar y eliminar tus egresos.</p>
+        </div>
+    </div>
+</div>
+<div ng-init="load();">
+        <div ng-show="($root.egresos.length == 0)" class="row"  style="display: flex;align-items: center;justify-content: center;width: 100%;height: 100vh;flex-direction: column;text-align: center;">
+                <div class="col-lg-12">
+                    <div>
+                            <h3 class="m-b">Sin resultados, No hay periodos aun.</h3>
+                            <button class="btn btn-primary" ng-click="new_record()"><i class="fa fa-plus"></i> Nuevo Egreso</button>
+                            <button class="btn btn-primary" ng-click="upload_csv()"><i class="fa fa-plus"></i> Importar desde archivo CSV</button>
+                    </div>
+                </div>
+        </div>
+        <div class="col-lg-12" ng-show="($root.egresos.length > 0)">
+        <div class="hpanel">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button class="btn btn-primary pull-right" ng-click="new_record()"><i class="fa fa-plus"></i> Nuevo egreso</button>
+                    </div>
+                </div>
+                <div class="row m-t">
+                    <div class="col-md-2">
+                        <label>Periodo</label>
+                        <select ng-change="getByPeriodo(filter.periodo)" class="form-control m-b" ng-model="filter.periodo"  name="periodo">
+                            <option value="">-- Periodo --</option>
+                            <option ng-selected="filter.periodo == periodo.id" ng-repeat="periodo in periodos" value="{{periodo._id}}">{{periodo.mes}}</option>
+                         </select>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label for="">Referencia</label>
+                            <input type="text" placeholder="Buscar referencia" ng-model="filter.referencia" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Categoria</label>
+                        <select class="form-control" ng-model="filter.categoria"  name="Categoria" >
+                            <option value="">-- Categoria --</option>
+                            <option ng-repeat="categoria in categorias" value="{{categoria._id}}">{{categoria.descripcioncat}}</option>
+                         </select>
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Tercero </label>
+                        <ui-select ng-model="$parent.filter.tercero" name="Tercero" theme="bootstrap">
+                            <ui-select-match allow-clear="true" placeholder="Tercero">{{$select.selected.nombre}}</ui-select-match>
+                            <ui-select-choices repeat="tercero in terceros | filter: $select.search">
+                                <div ng-bind-html="tercero.nombre | highlight: $select.search"></div>
+                                Nombre: {{tercero.nombre}}
+                            </ui-select-choices>
+                          </ui-select>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select class="form-control m-b" ng-model="filter.estado"  required name="Estado documento">
+                                <option value="">-- Estado --</option>
+                                <option ng-repeat="estado in estados" value="{{estado._id}}">{{estado.descripcion}}</option>
+                             </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="splash" ng-show="loading"> 
+                    <div class="color-line"></div>
+                    <div class="splash-title">
+                        <img src="images/loading-bars.svg" width="64" height="64"> 
+                    </div> 
+                </div>
+            <div class="table-responsive">
+            <table cellpadding="1" cellspacing="1" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Periodo</th>
+                    <th>Categoria</th>
+                    <th>Tercero</th>
+                    <th>Valor</th>
+                    <th>Referencias</th>
+                    <th>Fecha de creación</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-center" ng-show="(filtered.length == 0)">
+                    <td colspan="8">No hay datos para mostrar</td>
+                </tr>
+                <tr  pagination-id="pagination-egresos" dir-paginate="record in filtered = (egresos | filter  : { tercero : { id : filter.tercero.id}, categoriadto : {id : filter.categoria}, estadodocumento : { id : filter.estado}, txtReferencia : filter.referencia}) | itemsPerPage: 5" ng-click="setSelected()">
+                    <td class="capitilize">{{record.periodo.mes}}</td>
+                    <td><a href="">{{record.categoriadto.descripcioncat}}</a></td>
+                    <td>{{record.tercero.nombre}}</td>
+                    <td>{{totalize(record.movimiento) | currency:"$"}}</td>
+                    <td>{{normalize(record)}}</td>
+                    <td>{{record.createdAt | moment: 'format': 'YYYY-MM-DD' }}</td>
+                    <td><span ng-class="{'label-success': (record.estadodocumento.descripcion == 'Finalizado'), 'label-warning' : (record.estadodocumento.descripcion == 'Pendiente')}" class="label">{{record.estadodocumento.descripcion}}</span></td>
+                    <td ng-click="$event.stopPropagation()">
+                        <div class="action-btns">
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="detail()">Detalle</button>
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="edit_record()">Editar</button>
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="delete()" ng-disabled="(record.estadodocumento.descripcion == 'Finalizado')">Borrar</button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-lg-12">
+                <div class="pull-right"> 
+                    <dir-pagination-controls pagination-id="pagination-egresos"></dir-pagination-controls>
+                </div> 
+            </div>
+        </div>
+        </div>
+        <div class="panel-footer">
+            Egresos - {{$root.egresos.length}} filas.
+        </div>
+        </div>
+    </div>
+    <input type="file" id="csv" name="csv" name="csv" ng-model="csv" required reader="csv_file" style="display:none;">
+</div>

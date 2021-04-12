@@ -1,0 +1,49 @@
+<div class="inmodal" ng-controller='categorias_documentosCtrl' ng-init='load()'>
+    <div class="color-line"></div>
+    <div class="modal-header text-center">
+        <h4 class="modal-title">Editar categoria de documentos</h4>
+        <small class="font-bold">Complete el formulario para editar categoria de documentos.</small>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <form name="formRecordEdit">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Descripcion <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['presupuesto'].$touched && formRecord['presupuesto'].$invalid)"> C. requerido.</span></label>
+                            <input type="text" placeholder="Descripcion" ng-model="formEdit.descripcioncat" name="descripcion" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Estado <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['estadoCategoria'].$touched && formRecord['estadoCategoria'].$invalid)"> C. requerido.</span></label>
+                            <select class="form-control m-b" ng-model="formEdit.estado" required name="estadoCategoria">
+                                <option value="">-- Seleccione una opción --</option>
+                                <option ng-selected="estado == formEdit.estado" ng-repeat="estado in ['Habilitado', 'Inhabilitado']" ng-value="{{estado}}">{{estado}}</option>
+                             </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Categoria <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['categoria'].$touched && formRecord['categoria'].$invalid)">requerido.</span></label>
+                        <select  class="form-control" ng-model="formEdit.categoria_2_"  name="categoria" required>
+                            <option value="">-- Categoria --</option>
+                            <option  ng-selected="{{ formEdit.categoria_2_._id == categoria.id }}" ng-repeat="categoria in sub_categoria" value="{{categoria._id}}">{{categoria.descripcion}}</option>
+                         </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="checkbox" style="margin-top: 30px;">
+                            <input icheck type="checkbox" ng-model="formEdit.impuesto">
+                            Impuesto
+                        </div>
+                    </div>
+                </div>
+                <div>
+                </div>
+            </form>    
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="$close()">Cerrar</button>
+        <button type="button" ng-disabled="formRecord.$invalid" class="btn btn-primary" ng-click="update()">Guardar</button>
+    </div>
+</div>

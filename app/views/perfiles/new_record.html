@@ -1,0 +1,83 @@
+<div class="inmodal">
+    <div class="color-line"></div>
+    <div class="modal-header text-center">
+        <h4 class="modal-title">Nuevo Perfil</h4>
+        <small class="font-bold">Complete el formulario para registrar un nuevo perfil.</small>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <form name="formRecord">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <label>Perfil</label>
+                        <select required ng-change="changedMaster(form.data.master)" class="form-control m-b" ng-model="form.data.master"  name="master">
+                            <option value="">-- Perfil --</option>
+                            <option ng-repeat="perfil in perfilOptions" value="{{perfil.id}}">{{perfil.nombre}}</option>
+                         </select>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Nombre del perfil<span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['perfil'].$touched && formRecord['perfil'].$invalid)"> C. requerido.</span></label>
+                            <input type="text" ng-model="form.data.nombre" name="perfil" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Estado <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['estadoPeriodo'].$touched && formRecord['estadoPeriodo'].$invalid)"> C. requerido.</span></label>
+                            <select class="form-control m-b" ng-model="form.data.estado" required name="estadoPeriodo">
+                                <option value="">-- Seleccione una opción --</option>
+                                <option ng-repeat="estado in ['Activo', 'Inactivo']" ng-value="{{estado}}">{{estado}}</option>
+                             </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+                </div>
+            </form>    
+        </div>
+        <accordion close-others="oneAtATime" ng-show="form.data.master">
+            <accordion-group is-open="status.open" ng-repeat="(key, value) in selectedMaster.permisosdetalle">
+                <accordion-heading>
+                  {{key}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="checkbox" style="margin-top: 30px;">
+                            <input icheck type="checkbox" ng-model="value.create">
+                                crear
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="checkbox" style="margin-top: 30px;">
+                            <input icheck  type="checkbox" ng-model="value.edit">
+                                Editar
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="checkbox" style="margin-top: 30px;">
+                            <input icheck  type="checkbox" ng-model="value.delete">
+                            Eliminar
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="checkbox" style="margin-top: 30px;">
+                            <input icheck  type="checkbox" ng-model="value.read">
+                                leer
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="checkbox" style="margin-top: 30px;">
+                            <input icheck  type="checkbox" ng-model="value.menu">
+                                Menu
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="$close()">Cerrar</button>
+        <button type="button" ng-disabled="formRecord.$invalid" class="btn btn-primary" ng-click="save()">Guardar</button>
+    </div>
+</div>

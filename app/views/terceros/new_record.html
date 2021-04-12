@@ -1,0 +1,71 @@
+<div class="inmodal"  ng-controller='tercerosCtrl' ng-init='load()'>
+    <div class="color-line"></div>
+    <div class="modal-header text-center">
+        <h4 class="modal-title">Nuevo Tercero</h4>
+        <small class="font-bold">Complete el formulario para registrar un nuevo tercero.</small>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <form name="formRecord">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Nombre completo <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['nombres'].$touched && formRecord['nombres'].$invalid)"> C. requerido.</span></label>
+                        <input type="text" ng-model="form.data.nombre" name="nombres" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Razón social <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['razonsocial'].$touched && formRecord['razonsocial'].$invalid)"> C. requerido.</span></label>
+                        <input type="text" ng-model="form.data.razonsocial" name="razonsocial" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Dirección <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['direccion'].$touched && formRecord['direccion'].$invalid)"> C. requerido.</span></label>
+                        <input type="text" ng-model="form.data.direccion" name="direccion" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Email <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['email'].$touched && formRecord['email'].$invalid)"> C. requerido.</span></label>
+                        <input type="text" ng-model="form.data.email" name="email" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Telefono <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['telefono'].$touched && formRecord['telefono'].$invalid)"> C. requerido.</span></label>
+                        <input type="text" ng-model="form.data.telefono" name="telefono" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Categoria <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['Categoria'].$touched && formRecord['Categoria'].$invalid)">requerido.</span></label>
+                        <select  ng-change="getCategory(form.data.categoriadto)" class="form-control" ng-model="form.data.categoriadto"  name="Categoria" required>
+                            <option value="">-- Categoria --</option>
+                            <option ng-repeat="categoria in categorias" value="{{categoria._id}}">{{categoria.descripcioncat}}</option>
+                         </select>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Estado <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['estadoPeriodo'].$touched && formRecord['estadoPeriodo'].$invalid)"> C. requerido.</span></label>
+                        <select class="form-control m-b" ng-model="form.data.estado" required name="estadoPeriodo">
+                            <option value="">-- Seleccione una opción --</option>
+                            <option ng-repeat="estado in ['Activo', 'Inactivo']" ng-value="{{estado}}">{{estado}}</option>
+                         </select>
+                    </div>
+                </div>
+    </form> 
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="$close()">Cerrar</button>
+        <button type="button" ng-disabled="formRecord.$invalid" class="btn btn-primary" ng-click="save()">Guardar</button>
+    </div>
+</div>
+
+
+
+
+
+         

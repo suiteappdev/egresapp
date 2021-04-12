@@ -1,0 +1,212 @@
+<div class="col-lg-12">
+    <div class="hpanel">
+        <div class="panel-body">
+            <h3>Detalle de ingreso - {{recordDetail.tercero.nombre}}</h3>
+            <p>Puedes ver y descargar el detalle de este movimiento.</p>
+        </div>
+    </div>
+</div>
+<div ng-init="load();">
+        <div ng-show="(!recordDetail)" class="row"  style="display: flex;align-items: center;justify-content: center;width: 100%;height: 100vh;flex-direction: column;text-align: center;">
+                <div class="col-lg-12">
+                    <div>
+                            <h3 class="m-b">Sin resultados, No hay ingresos aun.</h3>
+                            <button class="btn btn-primary" ng-click="new_record()"><i class="fa fa-plus"></i> Nuevo Ingreso</button>
+                            <button class="btn btn-primary" ng-click="upload_csv()"><i class="fa fa-plus"></i> Importar desde archivo CSV</button>
+                    </div>
+                </div>
+        </div>
+        <div class="col-lg-8" ng-show="(recordDetail)">
+        <div class="hpanel">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12 form-group">
+                        <button type="button" ng-disabled="!(recordDetail &amp;&amp; (recordDetail.archivos.length > 0))" class="btn btn-primary btn-sm" ng-click="print()"><i class="fa fa-print"></i> Imprimir</button>
+                    </div>
+                </div>
+                <h3>
+                    Información de Ingreso
+                </h3>
+                <table id="user" class="table table-bordered table-striped" style="clear: both">
+                    <tbody>
+                        <tr>
+                            <td>Estado</td>
+                            <td><span ng-class="{'label-success': (recordDetail.estadodocumento.descripcion == 'Finalizado'), 'label-warning' : (recordDetail.estadodocumento.descripcion == 'Pendiente')}" class="label">{{recordDetail.estadodocumento.descripcion}}</span></td>
+                        </tr>
+                    <tr>
+                        <td width="35%">Periodo</td>
+                        <td width="65%">{{recordDetail.periodo.mes}}</td>
+                    </tr>
+                    <tr>
+                        <td>Fecha inicial</td>
+                        <td>{{recordDetail.fechainicial}}</td>
+                    </tr>
+                    <tr>
+                        <td>Fecha final</td>
+                        <td>{{recordDetail.fechafinal}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Categoria</td>
+                        <td>{{recordDetail.categoriadto.descripcioncat}}</td>
+                    </tr>
+                    <tr>
+                        <td>Tercero</td>
+                        <td class="font-bold">{{recordDetail.tercero.nombre}}</td>
+                    </tr>
+                </tr>
+                    <tr>
+                        <td>Referencias</td>
+                        <td>{{normalize(recordDetail)}}</td>
+                    </tr>
+                    <tr>
+                        <td>Fecha de registro</td>
+                        <td>{{recordDetail.createdAt}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Autor</td>
+                        <td>{{recordDetail.user.nombres}} {{recordDetail.user.apellidos}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="col-lg-6 row">
+                    <h3>
+                        Detalle de pago
+                    </h3>
+                    <table id="user" class="table table-bordered table-striped" style="clear: both">
+                        <tbody>
+                        <tr ng-repeat="p in recordDetail.movimiento">
+                            <td width="35%">{{p.fpago.descripcionpago}} <span ng-show="p.tipo" class="label label-success">{{p.tipo}}</span></td>
+                            <td width="65%"><span class="label label-primary"></span>{{p.valor | currency:"$"}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-6 row text-center">
+                    <h3>
+                        Total movimiento
+                    </h3>
+                    <h1 class="font-extra-bold m-t-xl m-b-xs">
+                       {{totalizeDetail() | currency:"$"}}
+                    </h1>
+                </div>
+                <h3 style="clear: both;">
+                    Impuestos
+                </h3>
+                <table id="user" class="table table-bordered table-striped" style="clear: both">
+                    <tbody>
+                    <tr>
+                        <td>Base Iva 0%</td>
+                        <td>{{recordDetail.impuestos.iva0 || 0 | currency:"$"}}</td>
+                    </tr>
+                    <tr>
+                        <td width="35%">Base Iva 5%</td>
+                        <td width="65%">{{recordDetail.impuestos.iva5 || 0 | currency:"$"}}</td>
+                    </tr>
+                    <tr>
+                        <td width="35%">Base Iva 19%</td>
+                        <td width="65%">{{recordDetail.impuestos.iva19 || 0 | currency:"$"}}</td>
+                    </tr>
+                    <tr>
+                        <td width="35%">Impuesto de bolsa</td>
+                        <td width="65%">{{recordDetail.impuestos.bolsa || 0 | currency:"$"}}</td>
+                    </tr>
+                    <tr>
+                        <td>valor Iva 0%</td>
+                        <td>{{recordDetail.impuestos.valor_iva0 || 0 | currency:"$"}}</td>
+                    </tr>
+                    <tr>
+                        <td width="35%">Valor Iva 5%</td>
+                        <td width="65%">{{recordDetail.impuestos.valor_iva5 || 0 | currency:"$"}}</td>
+                    </tr>
+                    <tr>
+                        <td width="35%">Valor Iva 19%</td>
+                        <td width="65%">{{recordDetail.impuestos.valor_iva19 || 0 | currency:"$"}}</td>
+                    </tr>
+                    <tr>
+                        <td width="35%">Descuento</td>
+                        <td width="65%">{{recordDetail.impuestos.descuento || 0 | currency:"$"}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        <div class="panel-footer">
+            Ingreso - {{recordDetail._id}}.
+        </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="hpanel hblue">
+            <div class="panel-heading hbuilt">
+                <div class="panel-tools">
+                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                    <a class="closebox"><i class="fa fa-times"></i></a>
+                </div>
+               Notas del egreso
+            </div>
+            <div class="alert alert-primary" ng-show="!recordDetail.observacion">
+                <i class="fa fa-comment"></i> Ingreso sin nota.
+            </div>
+            <div class="panel-body">
+                <p ng-show="recordDetail.observacion">
+                    {{recordDetail.observacion}}
+                </p>
+            </div>
+            <div class="panel-footer">
+                Author {{recordDetail.user.nombres}} {{recordDetail.user.apellidos}}
+            </div>
+        </div>
+        <div class="hpanel hblue">
+            <div class="panel-heading hbuilt">
+                <div class="panel-tools">
+                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                    <a class="closebox"><i class="fa fa-times"></i></a>
+                </div>
+               Soportes - Facturas
+            </div>
+            <div class="alert alert-warning" ng-show="!recordDetail.archivos">
+                <i class="fa fa-download"></i> Este ingreso no tiene soportes
+            </div>
+            <div class="panel-body no-padding">
+                <ul class="list-group" ng-show="recordDetail && (recordDetail.archivos.length > 0)">
+                    <li class="list-group-item" ng-repeat="archivo in recordDetail.archivos" >
+                        <i class="fa fa-file"> </i>            
+                        {{normalizeFilename(archivo.hash)}}
+                        <div class="pull-right">
+                            <a href="{{recordDetail.url}}" download><span class="badge badge-success"><i class="fa fa-download"></i></span></a>
+                            <a ng-click="viewImage()" alt={{recordDetail.hash}} target="_blank"><span class="badge badge-primary"><i class="fa fa-eye"></i></span></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-footer flex-right">
+                <button type="button" ng-disabled="!(recordDetail && (recordDetail.archivo.length > 0))" class="btn btn-primary btn-sm" ng-click="asZip()"><i class="fa fa-cloud"></i> Descargar todo como .zip</button>
+            </div>
+        </div>
+        <div class="hpanel hblue">
+            <div class="panel-heading hbuilt">
+                <div class="panel-tools">
+                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                    <a class="closebox"><i class="fa fa-times"></i></a>
+                </div>
+               Recordatorio
+            </div>
+            <div class="alert alert-warning" ng-show="!recordDetail.recordar">
+                <i class="fa fa-download"></i> Sin recordatorio
+            </div>
+            <div class="panel-body no-padding">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label class="control-label" for="recor"></label>
+                        <input type="number" ng-model="recordDetail.recordia" title="Dias" disabled placeholder="dias" name="dias" id="recor" class="form-control">
+                        <span class="help-block small">Dias antes de la fecha de vencimiento</span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer flex-right">
+                <button ng-show="recordDetail.recordar" type="button" class="btn btn-success btn-sm" ng-click="asZip()"><i class="fa fa-calendar"></i> Modificar dia de recordatorio</button>
+            </div>
+        </div>
+    </div>
+</div>

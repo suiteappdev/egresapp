@@ -1,0 +1,48 @@
+
+          <div class="inmodal">
+                <div class="color-line"></div>
+                <div class="modal-header text-center">
+                    <h4 class="modal-title">Edit {{role.display_name}}</h4>
+                    <small class="font-bold">Please fill the complete form.</small>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form name="$parent.formEditUser">
+                            <div class="form-group col-lg-6">
+                                <label>Name</label>
+                                <input type="text" required ng-model="formEdit.metadata.first_name" name="first_name" class="form-control"  placeholder="Name">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>Last name</label>
+                                <input type="text" required ng-model="formEdit.metadata.last_name" class="form-control" name="last_name" placeholder="Last name">
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label>Email Address</label>
+                                <input type="email" required ng-model="formEdit.metadata.email" class="form-control" name="username" placeholder="user@email.com">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>Goal type</label>
+                                <input type="text" required ng-model="formEdit.person.goal_type" value="" id="" class="form-control" name="goal_type" placeholder="Goal type">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>Goal Number</label>
+                                <input type="number" required ng-model="formEdit.person.goal_num"  class="form-control" name="goal_num" placeholder="Goal number" >
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>Password</label>
+                                <input type="password"  ng-model="formEdit.data.password"  class="form-control" name="password" placeholder="Password" >
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>Confirm password</label>
+                                <input type="password"  ng-model="confirm_password"  class="form-control" name="confirm_password" placeholder="Confirm password" >
+                            </div>
+                        </form>    
+    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="$close()">Close</button>
+                    <button type="button" ng-disabled="formUser.$invalid" class="btn btn-primary" ng-click="update()">Update</button>
+                </div>
+            </div>
+    
