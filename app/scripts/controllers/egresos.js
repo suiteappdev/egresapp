@@ -542,7 +542,7 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
         });
 
         api.tipo_descuentos().get().then(function(response){
-            $scope.descuentos = response.data;
+            $rootScope.descuentos = response.data;
         }).catch(function(e){
             $scope.loading = false;
         });

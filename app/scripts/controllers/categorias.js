@@ -82,7 +82,7 @@ function categoriasCtrl($scope, $rootScope, api, menu, $modal, $stateParams, not
 
  $scope.edit_record = function(){
      $rootScope.formEdit = angular.copy(this.record);
-     $rootScope.formEdit.estado = $rootScope.formEdit.estado ?  ($rootScope.formEdit.estado = 'Habilitado') : ($rootScope.formEdit.estado = 'Inhabilitado');
+     $rootScope.formEdit.estado = $rootScope.formEdit.estado ? "Activo" : "Inactivo";
      $rootScope.modal = $modal.open({
          templateUrl: 'views/categorias/edit_record.html',
          controller : 'categoriasCtrl'
@@ -92,7 +92,7 @@ function categoriasCtrl($scope, $rootScope, api, menu, $modal, $stateParams, not
  $scope.update = function(){
      if($scope.formRecordEdit.$valid){
          $rootScope.loading = true;
-         $rootScope.formEdit.estado = $rootScope.formEdit.estado == "Habilitado" ? true : false;
+         $rootScope.formEdit.estado = $rootScope.formEdit.estado == "ctivo" ? true : false;
          api.categoria_padre($rootScope.formEdit.id).put($rootScope.formEdit).then(function(response){
              $rootScope.loading  = false;
              $scope.load();
@@ -116,7 +116,7 @@ function categoriasCtrl($scope, $rootScope, api, menu, $modal, $stateParams, not
          $scope.$close();
          $rootScope.loading = true;
 
-         $scope.form.data.estado  =  ($scope.form.data.estado == 'Habilitado' ? true : false);
+         $scope.form.data.estado  =  ($scope.form.data.estado == 'activo' ? true : false);
 
          api.categoria_padre().post($scope.form.data).then(function(response){
              $scope.load();

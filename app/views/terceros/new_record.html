@@ -21,6 +21,12 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
+                        <label>NIT<span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['nit'].$touched && formRecord['nit'].$invalid)"> C. requerido.</span></label>
+                        <input type="text" ng-model="form.data.nit" name="nit" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
                         <label>Dirección <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['direccion'].$touched && formRecord['direccion'].$invalid)"> C. requerido.</span></label>
                         <input type="text" ng-model="form.data.direccion" name="direccion" class="form-control">
                     </div>

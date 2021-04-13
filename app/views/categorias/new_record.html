@@ -19,7 +19,7 @@
                             <label>Estado <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['estadoCategoria'].$touched && formRecord['estadoCategoria'].$invalid)"> C. requerido.</span></label>
                             <select class="form-control m-b" ng-model="form.data.estado" required name="estadoCategoria">
                                 <option value="">-- Seleccione una opción --</option>
-                                <option ng-repeat="estado in ['Habilitado', 'Inhabilitado']" ng-value="{{estado}}">{{estado}}</option>
+                                <option ng-repeat="estado in ['Activo', 'Inactivo']" ng-value="{{estado}}">{{estado}}</option>
                              </select>
                         </div>
                     </div>

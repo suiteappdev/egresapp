@@ -95,18 +95,10 @@ function perfilesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
      if($scope.formEditRecord.$valid){
          $rootScope.loading = true;
 
-         var obj = {};
-
-         obj.nombre = $rootScope.formEdit.nombre;
-         obj.categoriadto = $rootScope.formEdit.categoriadto._id;
-         obj.telefono = $rootScope.formEdit.telefono;
-         obj.razonsocial = $rootScope.formEdit.razonsocial;
-         obj.direccion = $rootScope.formEdit.direccion;
-         obj.email = $rootScope.formEdit.email;
-         obj.estado = ($rootScope.formEdit.estado == 'Activo') ? true   : false
-        
+         $rootScope.formEdit.estado = ($rootScope.formEdit.estado == 'Activo') ? true   : false
          $rootScope.modal.close();
-         api.terceros($rootScope.formEdit.id).put(obj).then(function(response){
+
+         api.perfil($rootScope.formEdit.id).put($rootScope.formEdit).then(function(response){
              $rootScope.loading  = false;
              $scope.load();
              $scope.homerTemplate = 'views/notification/notify.html';
