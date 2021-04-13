@@ -12,7 +12,7 @@
                     <div>
                             <h3 class="m-b">Sin resultados, No hay periodos aun.</h3>
                             <button class="btn btn-primary" ng-click="new_record()"><i class="fa fa-plus"></i> Nuevo Ingreso</button>
-                            <button class="btn btn-primary" ng-click="upload_csv()"><i class="fa fa-plus"></i> Importar desde archivo CSV</button>
+                            <button class="btn btn-primary" ng-disabled="!$root.user.perfil.permisosdetalle.subcategorias.create" ng-click="upload_csv()"><i class="fa fa-plus"></i> Importar desde archivo CSV</button>
                     </div>
                 </div>
         </div>
@@ -68,8 +68,8 @@
                     <td> <span ng-class="{'label-success': (record.estado), 'label-warning' : (!record.estado)}" class="label ng-binding label-warning">{{record.estado ? "Activo" : "Inactivo"}}</span></td>
                     <td ng-click="$event.stopPropagation()">
                         <div class="action-btns pull-right" style="width: 120px;">
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="edit_record()">Editar</button>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="delete()" >Borrar</button>
+                            <button type="button" ng-disabled="!$root.user.perfil.permisosdetalle.subcategorias.edit" class="btn btn-primary btn-sm" ng-click="edit_record()">Editar</button>
+                            <button type="button" ng-disabled="!$root.user.perfil.permisosdetalle.subcategorias.delete" class="btn btn-primary btn-sm" ng-click="delete()" >Borrar</button>
                         </div>
                     </td>
                 </tr>

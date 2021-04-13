@@ -38,40 +38,40 @@
             <a ng-if="role.name == ('leader') && ( $root.user.role != 'manager' )" ui-sref="campaings.leaders({ role : role , campaing : $root.campaing})"> <span class="nav-label">{{role.display_name}}</span></a>
             <a ng-if="role.name == ('manager') " ui-sref="campaings.managers({ role : role , campaing : $root.campaing})"> <span class="nav-label">{{role.display_name}}</span></a>
         </li>
-        <li ui-sref-active="active">
+        <li ui-sref-active="active" ng-hide="!$root.user.perfil.permisosdetalle.ingresos.menu">
             <a ui-sref="campaings.ingresos({ role : role , campaing : $root.campaing})"> <span class="nav-label">Ingresos</span></a>
         </li>
-        <li ui-sref-active="active" >
+        <li ui-sref-active="active" ng-hide="!$root.user.perfil.permisosdetalle.egresos.menu" >
             <a ui-sref="campaings.egresos({ role : role , campaing : $root.campaing})"> <span class="nav-label">Egresos</span></a>
         </li>
-        <li ui-sref-active="active" >
+        <li ui-sref-active="active" ng-hide="!$root.user.perfil.permisosdetalle.formasdepagos.menu" >
             <a ui-sref="campaings.formas_pagos()"> <span class="nav-label">Formas de pagos</span></a>
         </li>
-        <li ui-sref-active="active" >
+        <li ui-sref-active="active" ng-hide="!$root.user.perfil.permisosdetalle.categorias.menu" >
             <a ui-sref="campaings.categorias()"> <span class="nav-label">Categorias</span></a>
         </li>
-        <li ui-sref-active="active" >
+        <li ui-sref-active="active" ng-hide="!$root.user.perfil.permisosdetalle.subcategorias.menu" >
             <a ui-sref="campaings.subcategorias()"> <span class="nav-label">Subcategorias</span></a>
         </li>
-        <li ui-sref-active="active" >
+        <li ui-sref-active="active" ng-hide="!$root.user.perfil.permisosdetalle.catdocumentos.menu" >
             <a ui-sref="campaings.categorias_documentos()"> <span class="nav-label">Cat. documentos</span></a>
         </li>
-        <li ui-sref-active="active" >
+        <li ui-sref-active="active" ng-hide="!$root.user.perfil.permisosdetalle.periodos.menu" >
             <a ui-sref="campaings.periodos()"> <span class="nav-label">Periodos</span></a>
         </li>
-        <li ui-sref-active="active" >
+        <li ui-sref-active="active" ng-hide="!$root.user.perfil.permisosdetalle.terceros.menu" >
             <a ui-sref="campaings.terceros()"> <span class="nav-label">Terceros</span></a>
         </li>
-        <li ui-sref-active="active" >
+        <li ui-sref-active="active" ng-hide="!$root.user.perfil.permisosdetalle.reportes.menu">
             <a ui-sref="campaings.reportes()"> <span class="nav-label">Reportes</span></a>
         </li>
-        <li ui-sref-active="active">
+        <li ui-sref-active="active" ng-hide="!$root.user.perfil.permisosdetalle.usuarios.menu">
             <a ui-sref="campaings.usuarios()"> <span class="nav-label">Usuarios</span></a>
         </li>
-        <li ui-sref-active="active">
+        <li ui-sref-active="active" ng-hide="!$root.user.perfil.permisosdetalle.perfil.menu">
             <a ui-sref="campaings.perfiles"> <span class="nav-label">Perfiles</span></a>
         </li>
-        <li ui-sref-active="active">
+        <li ui-sref-active="active" ng-hide="!$root.user.perfil.permisosdetalle.ccontraseña.menu">
             <a ui-sref="recover"> <span class="nav-label">C. Contraseña</span></a>
         </li>
         <li ui-sref-active="active">
