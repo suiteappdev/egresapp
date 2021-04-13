@@ -208,9 +208,9 @@
                     <label>Tercero <span class="text-danger">*</span> <span class="text-danger font-mini" ng-show="(formRecordEdit['Tercero'].$touched && formRecordEdit['Tercero'].$invalid)"> C. requerido.</span></label>
                     <ui-select ng-model="formEdit.tercero" name="Tercero" ng-required="true" theme="bootstrap">
                         <ui-select-match placeholder="Seleccionar tercero">{{$select.selected.nombre}}</ui-select-match>
-                        <ui-select-choices repeat="tercero in terceros | propsFilter: {nombre: $select.search, email: $select.search}">
+                        <ui-select-choices repeat="tercero in terceros | filter: $select.search">
                             <div ng-bind-html="tercero.nombre | highlight: $select.search"></div>
-                                Nombre: {{tercero.nombre}}
+                            Nombre: {{tercero.nombre}}
                         </ui-select-choices>
                     </ui-select>
                 </div>

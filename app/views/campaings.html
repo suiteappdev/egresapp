@@ -6,7 +6,7 @@
 
 <!-- Main Wrapper -->
 <div id="wrapper">
-    <div class="content" style="height: 100vh;" ui-view  ng-controller="dashboardCtrl" ng-init="load()">
+    <div class="content" ui-view ng-controller="dashboardCtrl" ng-init="load()">
         <div class="row">
             <div class="col-lg-12 ">
                 <div class="hpanel">
@@ -270,9 +270,9 @@
         </div>
     </div>
 </div>
-    <!-- Right sidebar -->
-    <div id="right-sidebar" ng-include="'views/common/right_sidebar.html'" class="sidebar-open" ng-show="rightSidebar"></div>
-
-    <!-- Footer -->
+        <!-- Right sidebar -->
+        <div id="right-sidebar" ng-include="'views/common/right_sidebar.html'" class="sidebar-open" ng-show="rightSidebar"></div>
+        <!-- Footer -->
+        <footer class="footer" ng-include="'views/common/footer.html'"></footer>
 </div>
 

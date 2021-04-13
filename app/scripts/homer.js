@@ -55,6 +55,7 @@ function fixWrapperHeight() {
 }
 
 
+
 function setBodySmall() {
     if ($(this).width() < 769) {
         $('body').addClass('page-small');

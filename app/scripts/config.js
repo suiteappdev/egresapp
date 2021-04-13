@@ -204,6 +204,16 @@ function configState($stateProvider, $httpProvider, $urlRouterProvider, $compile
                 pageTitle: 'Categorias documentos'
             }
         })
+        .state('campaings.descuentos', {
+            url: ":campaing/descuentos",
+            controller : "descuentosCtrl",
+            access: { requiredAuthentication: true },
+            templateUrl: "views/descuentos/records.html",
+            params: { role: null},
+            data: {
+                pageTitle: 'Descuentos'
+            }
+        })
         .state('recover', {
             url: "/recover",
             templateUrl: "views/common_app/recover.html",
