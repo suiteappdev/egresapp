@@ -96,7 +96,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr pagination-id="pagination-ingresos" dir-paginate="record in filtered = (ingresos | filter  : { tercero : { id : filter.tercero.id}, categoriadto : {id : filter.categoria}, estadodocumento : { id : filter.estado}, txtReferencia : filter.referencia}) | itemsPerPage: 5" ng-click="setSelected()">
+                <tr pagination-id="pagination-ingresos" dir-paginate="record in filtered = (ingresos | filter  : { tercero : { id : filter.tercero.id}, categoriadto : {id : filter.categoria}, estadodocumento : { id : filter.estado}, txtReferencia : filter.referencia}) | itemsPerPage: 31" ng-click="setSelected()">
                     <td class="capitilize">{{record.periodo.mes}}</td>
                     <td><a href="">{{record.categoriadto.descripcioncat}}</a></td>
                     <td>{{record.tercero.nombre}}</td>

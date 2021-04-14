@@ -403,11 +403,11 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
 
             var obj = {};
 
-            obj.categoriadto = $rootScope.formEdit.categoriadto._id;
-            obj.estadodocumento = $rootScope.formEdit.estadodocumento._id;
+            obj.categoriadto = $rootScope.formEdit.categoriadto;
+            obj.estadodocumento = $rootScope.formEdit.estadodocumento;
             obj.movimiento = $rootScope.formEdit.movimiento;
-            obj.periodo = $rootScope.formEdit.periodo._id;
-            obj.tercero = $rootScope.formEdit.tercero._id;
+            obj.periodo = $rootScope.formEdit.periodo.id;
+            obj.tercero = $rootScope.formEdit.tercero;
             obj.referencia = $rootScope.formEdit.referencia;
             obj.recordar = $rootScope.formEdit.recordar;
             obj.recordia = $rootScope.formEdit.recordia;
