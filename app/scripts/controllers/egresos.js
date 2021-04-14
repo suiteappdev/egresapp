@@ -555,6 +555,14 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
         });
     }
 
+    $scope.getSaldos = function(){
+        api.saldosEgresos().add('saldos/consolidado/periodo/' + $scope.filter.periodo).get().then(function(response){
+            $rootScope.saldoEgresos = response.data;
+        }).catch(function(e){
+            $rootScope.loading = false;
+        });
+    }
+
     $scope.getCategory = function(value){
        $scope.terceros = angular.copy($scope.tercerosCatalogo.filter(function(t){
            return  t.categoriadto.id == value;
@@ -990,8 +998,8 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
 
 
             api.egresos().post($scope.form.data).then(function(response){
-                $rootScope.$emit("reload_saldos");
                 $scope.getDocuments();
+                $scope.getSaldos();
                 $rootScope.loading = false;
                 $scope.homerTemplate = 'views/notification/notify.html';
                 delete $scope.form.data;

@@ -241,6 +241,14 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
         $scope.getDocuments(id);
     }
 
+    $scope.getSaldos = function(){
+        api.saldosIngresos().add('saldos/consolidado/').add("periodo/" + $scope.filter.periodo).get().then(function(response){
+            $rootScope.saldoIngresos = response.data;
+        }).catch(function(e){
+            $scope.loading = false;
+        });
+    }
+
     $scope.openTo = function($event) {
         $event.preventDefault();
         $event.stopPropagation();
@@ -435,6 +443,7 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             api.ingresos($rootScope.formEdit.id).put(obj).then(function(response){
                 $rootScope.loading  = false;
                 $scope.getDocuments();
+                $scope.getSaldos();
                 $scope.homerTemplate = 'views/notification/notify.html';
                 notify({ message: 'Registro actualizado con éxito', classes: 'alert-success', templateUrl: $scope.homerTemplate});
             }).catch(function(e){
@@ -481,6 +490,7 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
 
             api.ingresos().post($scope.form.data).then(function(response){
                 $scope.getDocuments();
+                $scope.getSaldos();
                 $rootScope.loading = false;
                 $scope.homerTemplate = 'views/notification/notify.html';
                 notify({ message: 'Registro de ingreso creado.', classes: 'alert-success', templateUrl: $scope.homerTemplate});
