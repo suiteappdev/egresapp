@@ -38,7 +38,7 @@
                     <div class="col-md-2">
                         <label>Periodo</label>
                         <select ng-change="getByPeriodo(filter.periodo)" class="form-control m-b" ng-model="filter.periodo"  name="periodo">
-                            <option ng-selected="filter.periodo == periodo.id" ng-repeat="periodo in periodos" ng-value="{{periodo._id}}">{{periodo.mes}}</option>
+                            <option ng-selected="filter.periodo == periodo.id" ng-repeat="periodo in periodos"  ng-value="periodo._id">{{periodo.mes}}</option>
                          </select>
                     </div>
                     <div class="col-lg-2">

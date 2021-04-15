@@ -420,7 +420,9 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             obj.recordar = $rootScope.formEdit.recordar;
             obj.recordia = $rootScope.formEdit.recordia;
             obj.observacion = $rootScope.formEdit.observacion;
-           
+            obj.fechafinal = $rootScope.formEdit.fechafinal;
+            obj.fechainicial = $rootScope.formEdit.fechainicial;
+            
             obj.archivos = $rootScope.formEdit.archivos.map(function(f){
                 return f.id;
             });
@@ -442,7 +444,7 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
 
             api.ingresos($rootScope.formEdit.id).put(obj).then(function(response){
                 $rootScope.loading  = false;
-                $scope.getDocuments();
+                $scope.getDocuments($scope.selectedPeriodo.id);
                 $scope.getSaldos();
                 $scope.homerTemplate = 'views/notification/notify.html';
                 notify({ message: 'Registro actualizado con éxito', classes: 'alert-success', templateUrl: $scope.homerTemplate});
@@ -489,7 +491,7 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             }
 
             api.ingresos().post($scope.form.data).then(function(response){
-                $scope.getDocuments();
+                $scope.getDocuments($scope.selectedPeriodo.id);
                 $scope.getSaldos();
                 $rootScope.loading = false;
                 $scope.homerTemplate = 'views/notification/notify.html';

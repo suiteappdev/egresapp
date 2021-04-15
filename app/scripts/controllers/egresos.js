@@ -510,7 +510,7 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             })[0];
 
             $scope.filter.periodo = $scope.selectedPeriodo.id;
-            $scope.getByPeriodo($scope.filter.periodo);
+            $scope.getByPeriodo($scope.selectedPeriodo.id);
 
             api.saldosEgresos().add('saldos/consolidado/periodo/' + $scope.filter.periodo).get().then(function(response){
                 $rootScope.saldoEgresos = response.data;
@@ -822,6 +822,8 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             obj.categoriadto = $rootScope.formEdit.categoriadto._id;
             obj.estadodocumento = $scope.selectedEstado ?  $scope.selectedEstado.id : $rootScope.formEdit.estadodocumento._id;
             obj.movimiento = $rootScope.formEdit.movimiento;
+            obj.fechafinal = $rootScope.formEdit.fechafinal;
+            obj.fechainicial = $rootScope.formEdit.fechainicial;
             
             if($rootScope.formEdit.periodo){
                 obj.periodo = $rootScope.formEdit.periodo._id;
@@ -907,7 +909,7 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             $rootScope.modal.close();
             api.egresos($rootScope.formEdit.id).put(obj).then(function(response){
                 $rootScope.loading  = false;
-                $scope.getDocuments();
+                $scope.getDocuments($scope.selectedPeriodo.id);
                 $scope.homerTemplate = 'views/notification/notify.html';
                 notify({ message: 'Registro actualizado con éxito', classes: 'alert-success', templateUrl: $scope.homerTemplate});
             }).catch(function(e){
@@ -998,7 +1000,7 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
 
 
             api.egresos().post($scope.form.data).then(function(response){
-                $scope.getDocuments();
+                $scope.getDocuments($scope.selectedPeriodo.id);
                 $scope.getSaldos();
                 $rootScope.loading = false;
                 $scope.homerTemplate = 'views/notification/notify.html';

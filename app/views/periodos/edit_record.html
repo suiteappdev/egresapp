@@ -11,15 +11,13 @@
                     <div class="col-md-6">
                         <label>Periodo</label>
                         <select class="form-control m-b" ng-model="formEdit.mes"  name="mes">
-                            <option value="">-- Periodo --</option>
-                            <option ng-repeat="periodo in ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre' ]" value="{{periodo}}">{{periodo}}</option>
+                            <option ng-repeat="periodo in ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ]" ng-value="periodo">{{periodo}}</option>
                          </select>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Estado <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['estadoPeriodo'].$touched && formRecord['estadoPeriodo'].$invalid)"> C. requerido.</span></label>
                             <select class="form-control m-b" ng-model="formEdit.estado" required name="estadoPeriodo">
-                                <option value="">-- Seleccione una opción --</option>
                                 <option ng-repeat="estado in ['Habilitado', 'Inhabilitado']" ng-value="{{estado}}">{{estado}}</option>
                              </select>
                         </div>
