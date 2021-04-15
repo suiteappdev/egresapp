@@ -79,9 +79,9 @@
                     <td> <span ng-class="{'label-success': (record.estado), 'label-warning' : (!record.estado)}" class="label ng-binding label-warning">{{record.estado ? "Actvo" : "Inactivo"}}</span></td>
                     <td ng-click="$event.stopPropagation()">
                         <div class="action-btns">
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="detail()">Detalle</button>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="edit_record()">Editar</button>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="delete()" >Borrar</button>
+                            <button type="button" class="btn btn-primary btn-sm" ng-disabled="!$root.user.perfil.permisosdetalle.terceros.read" ng-click="detail()">Detalle</button>
+                            <button type="button" class="btn btn-primary btn-sm" ng-disabled="!$root.user.perfil.permisosdetalle.terceros.edit" ng-click="edit_record()">Editar</button>
+                            <button type="button" class="btn btn-primary btn-sm" ng-disabled="!$root.user.perfil.permisosdetalle.terceros.delete" ng-click="delete()" >Borrar</button>
                         </div>
                     </td>
                 </tr>
