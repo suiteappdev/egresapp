@@ -11,7 +11,7 @@
                     <div class="col-md-6">
                         <label>Periodo</label>
                         <select class="form-control m-b" ng-model="formEdit.periodo._id"  name="periodo">
-                            <option ng-repeat="periodo in periodos" value="{{periodo._id}}">{{periodo.mes}}</option>
+                            <option ng-selected="(periodo.id == formEdit.periodo._id)" ng-repeat="periodo in periodos" ng-value="periodo._id">{{periodo.mes}}</option>
                          </select>
                     </div>
                     <div class="col-md-6">

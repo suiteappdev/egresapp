@@ -32,9 +32,18 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
         $rootScope.loading = false;
     });
 
-    $scope.openModalFilter = function(){
+    $scope.openModalFilterEgresos = function(){
         var modal = $modal.open({
-            templateUrl: 'views/reportes/filter.html',
+            templateUrl: 'views/reportes/filter_egresos.html',
+            controller : 'reportesCtrl',
+            size: 'lg',
+            scope : $scope
+        });
+    }
+
+    $scope.openModalFilterIngresos = function(){
+        var modal = $modal.open({
+            templateUrl: 'views/reportes/filter_ingresos.html',
             controller : 'reportesCtrl',
             size: 'lg',
             scope : $scope
@@ -56,7 +65,7 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
         });
     }
 
-    $scope.query = function(){
+    $scope.queryIngreso = function(){
         var filter = "?";
         $scope.loading = true;
 
@@ -72,18 +81,18 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
              filter += "estadodocumento="+$scope.form.data.estadodocumento+"&";
         }
 
-        api.egresos().add(filter).get().then(function(res){
+        api.ingresos().add(filter).get().then(function(res){
            $scope.records = res.data || [];
            $scope.loading = false;
 
            if($scope.records.length > 0){
-                var output = _($scope.records).groupBy('tercero.nombre').map(function(egresos, key){
+                var output = _($scope.records).groupBy('tercero.nombre').map(function(ingresos, key){
                     var sumMes = function(data, mes){
                         var total = 0;
 
                         var rs = data.filter(function(e){
 
-                            if(e.fechaFinalizado &&  (moment(e.fechaFinalizado).month() == mes)){
+                            if(e.fechafinal &&  (moment(e.fechafinal).month() == mes)){
                                 return true
                             }
 
@@ -92,11 +101,9 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
 
                         for (var index = 0; index < rs.length; index++) {
                             var element = rs[index];
-                            console.log("elemnt", element);
                             if(element.movimiento.length > 0){
                                 for (var i = 0;  i < element.movimiento.length; i++) {
                                     var m = element.movimiento[i];
-                                        console.log("m", m);
                                     total = total + m.valor || 0;
                                 }
                             }
@@ -107,28 +114,29 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
 
                     return {
                         tercero : key,
-                        categoria : egresos[0].categoriadto.descripcioncat,
-                        ene : sumMes(egresos, 0),
-                        feb : sumMes(egresos, 1),
-                        mar : sumMes(egresos, 2),
-                        abr : sumMes(egresos, 3),
-                        may : sumMes(egresos, 4),
-                        jun : sumMes(egresos, 5),
-                        jul : sumMes(egresos, 6),
-                        ago : sumMes(egresos, 7),
-                        sep : sumMes(egresos, 8),
-                        oct : sumMes(egresos, 9),
-                        nov : sumMes(egresos, 10),
-                        dic : sumMes(egresos, 11)
+                        categoria : ingresos[0].categoriadto.descripcioncat,
+                        ene : sumMes(ingresos, 0),
+                        feb : sumMes(ingresos, 1),
+                        mar : sumMes(ingresos, 2),
+                        abr : sumMes(ingresos, 3),
+                        may : sumMes(ingresos, 4),
+                        jun : sumMes(ingresos, 5),
+                        jul : sumMes(ingresos, 6),
+                        ago : sumMes(ingresos, 7),
+                        sep : sumMes(ingresos, 8),
+                        oct : sumMes(ingresos, 9),
+                        nov : sumMes(ingresos, 10),
+                        dic : sumMes(ingresos, 11)
                     }
                 }).value();
+
                 $scope.records = output;
            }
         });
     }
 
     
-    $scope.query = function(){
+    $scope.queryEgreso = function(){
         var filter = "?";
         $scope.loading = true;
 
@@ -140,7 +148,9 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
             filter += "tercero="+$scope.form.data.tercero.id+"&";
         }
 
-        filter += "estadodocumento.descripcion=Finalizado&";
+        if($scope.form.data.estadodocumento){
+            filter += "estadodocumento="+$scope.form.data.estadodocumento+"&";
+       }
 
         api.egresos().add(filter).get().then(function(res){
            $scope.records = res.data || [];
@@ -153,7 +163,7 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
 
                         var rs = data.filter(function(e){
 
-                            if(e.fechaFinalizado &&  (moment(e.fechaFinalizado).month() == mes)){
+                            if(e.fechaFinalizado ? e.fechaFinalizado  : e.fechafinal &&  (moment(e.fechaFinalizado).month() == mes)){
                                 return true
                             }
 

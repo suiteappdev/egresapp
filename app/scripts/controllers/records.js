@@ -373,6 +373,7 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
         var modalInstance = $modal.open({
             templateUrl: 'views/modal/viewImage.html',
             controller: 'recordsCtrl',
+            size : "lg",
             windowClass: "hmodal-success"
         }); 
     }
