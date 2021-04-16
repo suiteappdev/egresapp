@@ -12,6 +12,12 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
     $scope.form = {};
     $scope.form.data = {};
 
+    api.estados_documentos().get().then(function(response){
+        $scope.estados = response.data;
+    }).catch(function(e){
+        $rootScope.loading = false;
+    });
+
     api.categoria().get().then(function(response){
         $scope.categorias = response.data;
         $rootScope.loading = false;
@@ -50,6 +56,78 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
         });
     }
 
+    $scope.query = function(){
+        var filter = "?";
+        $scope.loading = true;
+
+        if($scope.form.data.categoria){
+            filter += "categoriadto="+$scope.form.data.categoria+"&";
+        }
+
+        if($scope.form.data.tercero){
+            filter += "tercero="+$scope.form.data.tercero.id+"&";
+        }
+
+        if($scope.form.data.estadodocumento){
+             filter += "estadodocumento="+$scope.form.data.estadodocumento+"&";
+        }
+
+        api.egresos().add(filter).get().then(function(res){
+           $scope.records = res.data || [];
+           $scope.loading = false;
+
+           if($scope.records.length > 0){
+                var output = _($scope.records).groupBy('tercero.nombre').map(function(egresos, key){
+                    var sumMes = function(data, mes){
+                        var total = 0;
+
+                        var rs = data.filter(function(e){
+
+                            if(e.fechaFinalizado &&  (moment(e.fechaFinalizado).month() == mes)){
+                                return true
+                            }
+
+                            return false;
+                        });
+
+                        for (var index = 0; index < rs.length; index++) {
+                            var element = rs[index];
+                            console.log("elemnt", element);
+                            if(element.movimiento.length > 0){
+                                for (var i = 0;  i < element.movimiento.length; i++) {
+                                    var m = element.movimiento[i];
+                                        console.log("m", m);
+                                    total = total + m.valor || 0;
+                                }
+                            }
+                        }
+
+                        return $filter('currency')(total, '$', 0);
+                    }
+
+                    return {
+                        tercero : key,
+                        categoria : egresos[0].categoriadto.descripcioncat,
+                        ene : sumMes(egresos, 0),
+                        feb : sumMes(egresos, 1),
+                        mar : sumMes(egresos, 2),
+                        abr : sumMes(egresos, 3),
+                        may : sumMes(egresos, 4),
+                        jun : sumMes(egresos, 5),
+                        jul : sumMes(egresos, 6),
+                        ago : sumMes(egresos, 7),
+                        sep : sumMes(egresos, 8),
+                        oct : sumMes(egresos, 9),
+                        nov : sumMes(egresos, 10),
+                        dic : sumMes(egresos, 11)
+                    }
+                }).value();
+                $scope.records = output;
+           }
+        });
+    }
+
+    
     $scope.query = function(){
         var filter = "?";
         $scope.loading = true;

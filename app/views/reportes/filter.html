@@ -8,8 +8,7 @@
             <div class="col-lg-4">
                 <label>Categoria</label>
                 <select class="form-control m-b" ng-model="form.data.categoria"  name="Categoria" required>
-                    <option value="">-- Categoria --</option>
-                    <option ng-repeat="categoria in categorias" value="{{categoria._id}}">{{categoria.descripcioncat}}</option>
+                    <option ng-repeat="categoria in categorias" ng-value="categoria._id">{{categoria.descripcioncat}}</option>
                  </select>
             </div>
             <div class="col-lg-6" style="padding-bottom: 15px;">
@@ -22,7 +21,14 @@
                     </ui-select-choices>
                 </ui-select>
             </div>
-            
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label>Estado <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['Estadodocumento'].$touched && formRecord['Estadodocumento'].$invalid)"> C. requerido.</span></label>
+                    <select class="form-control m-b" ng-model="form.data.estadodocumento"  required name="Estado documento">
+                        <option ng-repeat="estado in estados" ng-value="estado._id">{{estado.descripcion}}</option>
+                     </select>
+                </div>
+            </div>
             <div class="col-lg-2">
                 <button type="button" ng-disabled="!$root.user.perfil.permisosdetalle.reportes.read" class="btn btn-primary" ng-click="query()">Consultar</button>
             </div>

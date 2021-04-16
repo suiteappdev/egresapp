@@ -79,11 +79,11 @@ function configState($stateProvider, $httpProvider, $urlRouterProvider, $compile
             }
         })
         .state('campaings', {
-            url: "/campaings",
+            url: "/administracion",
             controller : "dashboardCtrl",
             templateUrl: "views/campaings.html",
             data: {
-                pageTitle: 'Campaings'
+                pageTitle: 'Administración'
             }
         })
         .state('campaings.ingresos', {
@@ -820,7 +820,8 @@ angular
         //$("body").toggleClass("hide-sidebar");
 
         $rootScope.$on('$stateChangeStart', function(event, nextRoute, toParams, fromState, fromParams){
-            console.log('$stateChangeStart', nextRoute);
+            $rootScope.mainLoading = true;
+            console.log("'$stateChangeStart'",  $rootScope.mainLoading)
             if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication && !localStorage.getItem('session')) {
                 event.preventDefault();
                 nextRoute.data.pageTitle = "Entrar";

@@ -29,7 +29,7 @@ function pageTitle($rootScope, $timeout) {
                 // Default title
                 var title = 'SUITEAPP | EGRESAPP';
                 // Create your own title pattern
-                if (toState.data && toState.data.pageTitle) title = 'EGRESAPP v1.0.5 | ' + toState.data.pageTitle;
+                if (toState.data && toState.data.pageTitle) title = 'EGRESAPP v1.0.6 | ' + toState.data.pageTitle;
                 $timeout(function() {
                     element.text(title);
                 });

@@ -355,13 +355,14 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
         }
      });
 
-     $scope.getDocuments = function(){
-        $scope.loading = true;
-        api.egresos().get().then(function(response){
-            $rootScope.egresos = response.data;
-            $scope.loading = false;
+     $scope.getDocuments = function(id){
+        api.egresos().add("periodo/" + (id ? id : "")).get().then(function(response){
+            if(response  && response.data.length > 0){
+                $rootScope.egresos = response.data;
+                $rootScope.mainLoading = false;
+            }
         }).catch(function(e){
-            $rootScope.loading = false;
+            $rootScope.mainLoading = false;
         });  
      }
 
@@ -547,7 +548,6 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             $scope.loading = false;
         });
 
-
         api.formasPagos().get().then(function(response){
             $scope.formasPagos = response.data;
         }).catch(function(e){
@@ -574,11 +574,10 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
     }
 
     $scope.getEgresos = function(id){
-        $scope.loading = true;
-
         api.egresos().add("/periodo/" + (id ? id : "")).get().then(function(response){
             if(response  && response.data.length > 0){
                 $rootScope.egresos = response.data;
+                $rootScope.mainLoading  = false;
             }
             
             $scope.loading = false;

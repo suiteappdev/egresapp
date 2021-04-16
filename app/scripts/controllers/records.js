@@ -155,11 +155,11 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             
             if(response  && response.data.length > 0){
                 $rootScope.ingresos = response.data;
+                $rootScope.mainLoading = false;
             }
 
-            $scope.loading = false;
         }).catch(function(e){
-            $scope.loading = false;
+            $rootScope.mainLoading = false;
         });  
      }
     
