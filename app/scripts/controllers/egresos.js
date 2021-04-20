@@ -776,6 +776,10 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
         if($rootScope.formEdit &&  $rootScope.formEdit.fdetalle && $rootScope.formEdit.fdetalle.conceptos){
             $rootScope.formEdit.fdetalle.conceptos = [];
         }
+
+        if($scope.detalleDeFactura && $scope.detalleDeFactura.length > 0){
+            $scope.detalleDeFactura = [];
+        } 
     }
 
     $scope.removeDiscountEdit = function(){

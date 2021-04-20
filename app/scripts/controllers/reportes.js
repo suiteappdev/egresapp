@@ -92,9 +92,16 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
 
                         var rs = data.filter(function(e){
 
-                            if(e.fechafinal &&  (moment(e.fechafinal).month() == mes)){
-                                return true
+                            if($scope.selectedState.descripcion == "Finalizado"){
+                                if(e.fechaFinalizado &&  (moment(e.fechaFinalizado ).month() == mes)){
+                                    return true
+                                }
+                            }else{
+                                if(e.fechafinal &&  (moment(e.fechafinal ).month() == mes)){
+                                    return true
+                                }
                             }
+
 
                             return false;
                         });
@@ -135,6 +142,12 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
         });
     }
 
+   $scope.onChangeState = function(id){
+        $scope.selectedState = $scope.estados.filter(function(s){
+            return s.id  == id;
+        })[0]
+   }
+
     
     $scope.queryEgreso = function(){
         var filter = "?";
@@ -163,8 +176,14 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
 
                         var rs = data.filter(function(e){
 
-                            if(e.fechaFinalizado ? e.fechaFinalizado  : e.fechafinal &&  (moment(e.fechaFinalizado).month() == mes)){
-                                return true
+                            if($scope.selectedState.descripcion == "Finalizado"){
+                                if(e.fechaFinalizado &&  (moment(e.fechaFinalizado ).month() == mes)){
+                                    return true
+                                }
+                            }else{
+                                if(e.fechafinal &&  (moment(e.fechafinal ).month() == mes)){
+                                    return true
+                                }
                             }
 
                             return false;
