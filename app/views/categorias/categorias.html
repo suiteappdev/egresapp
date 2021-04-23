@@ -46,7 +46,7 @@
                     <td>{{record.descripcion}}</td>
                     <td> <span ng-class="{'label-success': (record.estado), 'label-warning' : (!record.estado)}" class="label ng-binding label-warning">{{record.estado ? "Actvo" : "Inactivo"}}</span></td>
                     <td ng-click="$event.stopPropagation()">
-                        <div class="action-btns pull-right" style="width: 20px%;">
+                        <div class="action-btns pull-right" style="width: 20px">
                             <button type="button" ng-disabled="!$root.user.perfil.permisosdetalle.categorias.edit" class="btn btn-primary btn-sm" ng-click="edit_record()">Editar</button>
                             <button type="button" ng-disabled="!$root.user.perfil.permisosdetalle.categorias.delete" class="btn btn-primary btn-sm" ng-click="delete()" >Borrar</button>
                         </div>

@@ -25,9 +25,9 @@
                     </div>
                     <div class="col-md-4">
                         <label>Categoria <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecord['subCategoria'].$touched && formRecord['subCategoria'].$invalid)">requerido.</span></label>
-                        <select  class="form-control" ng-model="formEdit.categoria_1"  name="subCategoria" required>
-                            <option value="">-- Categoria --</option>
-                            <option  ng-selected="formEdit.categoria_1._id == categoria.id" ng-repeat="categoria in categorias_padre" ng-value="categoria._id">{{categoria.descripcion}}</option>
+                        <select  class="form-control" ng-model="selectedCategoria"  name="subCategoria" required>
+                            <option value="">-- Seleccione una opción --</option>
+                            <option  ng-selected="formEdit.categoria_1._id == categoria.id" ng-repeat="categoria in categorias" value="{{categoria._id}}">{{categoria.descripcioncat}}</option>
                          </select>
                     </div>
                 </div>
