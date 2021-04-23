@@ -54,9 +54,8 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label>Estado <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecordEdit['estadoPeriodo'].$touched && formRecordEdit['estadoPeriodo'].$invalid)"> C. requerido.</span></label>
-                        <select class="form-control m-b" ng-model="formEdit.estado" required name="estadoPeriodo">
-                            <option value="">-- Seleccione una opción --</option>
-                            <option ng-repeat="estado in ['Activo', 'Inactivo']" ng-value="{{estado}}">{{estado}}</option>
+                        <select class="form-control m-b" ng-model="$root.formEdit.estado" required name="estadoPeriodo">
+                            <option ng-repeat="estado in ['Activo', 'Inactivo']" value="{{estado}}">{{estado}}</option>
                          </select>
                     </div>
                 </div>

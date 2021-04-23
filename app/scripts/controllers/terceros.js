@@ -364,8 +364,12 @@ function tercerosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
          $scope.$close();
          $rootScope.loading = true;
 
-         $scope.form.data.estado  =  ($scope.form.data.estado == 'Activo' ? true : false);
-
+        if($scope.form.data.estado == "Activo"){
+             $scope.form.data.estado  = true;
+        }else{
+            $scope.form.data.estado = false; 
+        }         
+        
          api.terceros().post($scope.form.data).then(function(response){
              $scope.load();;
              $rootScope.loading = false;
