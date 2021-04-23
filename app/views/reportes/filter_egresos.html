@@ -15,10 +15,10 @@
             <div class="col-lg-6" style="padding-bottom: 15px;">
                 <label>Tercero</label>
                 <ui-select ng-model="form.data.tercero" name="Tercero" ng-required="true" theme="bootstrap">
-                    <ui-select-match placeholder="Seleccionar tercero">{{$select.selected.nombre}}</ui-select-match>
-                    <ui-select-choices repeat="tercero in terceros | propsFilter: {nombre: $select.search, email: $select.search}">
+                    <ui-select-match allow-clear="true" placeholder="Tercero">{{$select.selected.nombre}}</ui-select-match>
+                    <ui-select-choices repeat="tercero in terceros | filter: $select.search">
                         <div ng-bind-html="tercero.nombre | highlight: $select.search"></div>
-                            Nombre: {{tercero.nombre}}
+                        Nombre: {{tercero.nombre}}
                     </ui-select-choices>
                 </ui-select>
             </div>

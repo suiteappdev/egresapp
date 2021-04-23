@@ -50,6 +50,15 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
         });
     }
 
+    $scope.openModalFilterFacturas = function(){
+        var modal = $modal.open({
+            templateUrl: 'views/reportes/filter_egresos_facturas.html',
+            controller : 'reportesCtrl',
+            size: 'lg',
+            scope : $scope
+        });
+    }
+
     $scope.report = function(){
         $http.get('views/print/reporte-egresos-anual.ejs').then(function(res){
             var _template = ejs.render(res.data, { 
@@ -92,12 +101,12 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
 
                         var rs = data.filter(function(e){
 
-                            if($scope.selectedState.descripcion == "Finalizado"){
+                            if($scope.selectedEstado && $scope.selectedState.descripcion == "Finalizado"){
                                 if(e.fechaFinalizado &&  (moment(e.fechaFinalizado ).month() == mes)){
                                     return true
                                 }
                             }else{
-                                if(e.fechafinal &&  (moment(e.fechafinal ).month() == mes)){
+                                if(e.fechainicial &&  (moment(e.fechainicial ).month() == mes)){
                                     return true
                                 }
                             }
@@ -163,7 +172,7 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
 
         if($scope.form.data.estadodocumento){
             filter += "estadodocumento="+$scope.form.data.estadodocumento+"&";
-       }
+        }
 
         api.egresos().add(filter).get().then(function(res){
            $scope.records = res.data || [];
@@ -176,12 +185,12 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
 
                         var rs = data.filter(function(e){
 
-                            if($scope.selectedState.descripcion == "Finalizado"){
+                            if($scope.selectedEstado && $scope.selectedState.descripcion == "Finalizado"){
                                 if(e.fechaFinalizado &&  (moment(e.fechaFinalizado ).month() == mes)){
                                     return true
                                 }
                             }else{
-                                if(e.fechafinal &&  (moment(e.fechafinal ).month() == mes)){
+                                if(e.fechainicial &&  (moment(e.fechainicial ).month() == mes)){
                                     return true
                                 }
                             }
@@ -195,7 +204,6 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
                             if(element.movimiento.length > 0){
                                 for (var i = 0;  i < element.movimiento.length; i++) {
                                     var m = element.movimiento[i];
-                                        console.log("m", m);
                                     total = total + m.valor || 0;
                                 }
                             }
@@ -221,7 +229,77 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
                         dic : sumMes(egresos, 11)
                     }
                 }).value();
+
                 $scope.records = output;
+           }
+        });
+    }
+
+    $scope.queryEgresoFacturas = function(){
+        var filter = "?";
+        $scope.loading = true;
+
+        if($scope.form.data.categoria){
+            filter += "categoriadto="+$scope.form.data.categoria+"&";
+        }
+
+        if($scope.form.data.tercero){
+            filter += "tercero="+$scope.form.data.tercero.id+"&";
+        }
+
+        if($scope.form.data.estadodocumento){
+            filter += "estadodocumento="+$scope.form.data.estadodocumento+"&";
+        }
+
+        api.egresos().add(filter).get().then(function(res){
+           $scope.records = res.data || [];
+           $scope.loading = false;
+
+           if($scope.records.length > 0){
+            var sumMes = function(data, mes){
+                var total = 0;
+
+                var rs = data.filter(function(e){
+
+                    if($scope.selectedEstado && $scope.selectedState.descripcion == "Finalizado"){
+                        if(e.fechaFinalizado &&  (moment(e.fechaFinalizado ).month() == mes)){
+                            return true
+                        }
+                    }else{
+                        if(e.fechainicial &&  (moment(e.fechainicial ).month() == mes)){
+                            return true
+                        }
+                    }
+
+                    return false;
+                });
+
+                for (var index = 0; index < rs.length; index++) {
+                    var element = rs[index];
+                    total = total + element.egresodetalle.total;
+                }
+
+                return $filter('currency')(total, '$', 0);
+            }
+               $scope.records = $scope.records.map(function(egreso){
+                return  {
+                    tercero : egreso.tercero.nombre,
+                    categoria : egreso.categoriadto.descripcioncat,
+                    ene : sumMes([egreso], 0),
+                    feb : sumMes([egreso], 1),
+                    mar : sumMes([egreso], 2),
+                    abr : sumMes([egreso], 3),
+                    may : sumMes([egreso], 4),
+                    jun : sumMes([egreso], 5),
+                    jul : sumMes([egreso], 6),
+                    ago : sumMes([egreso], 7),
+                    sep : sumMes([egreso], 8),
+                    oct : sumMes([egreso], 9),
+                    nov : sumMes([egreso], 10),
+                    dic : sumMes([egreso], 11)
+                }
+               });
+
            }
         });
     }

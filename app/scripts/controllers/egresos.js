@@ -196,7 +196,7 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
     }
 
     $scope.addDiscountRowEdit = function(){
-        $rootScope.formEdit.descuento = $rootScope.formEdit  && $rootScope.formEdit.descuento.length > 0 ? $rootScope.formEdit.descuento : [];
+        $rootScope.formEdit.descuento  =  $rootScope.formEdit  && $rootScope.formEdit.descuento && $rootScope.formEdit.descuento.length > 0 ? $rootScope.formEdit.descuento : [];
         $rootScope.formEdit.descuento.push({
             percent : 0,
             currency : 0,
@@ -510,10 +510,10 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
                 return moment(p.finicial).isSame(moment(new Date()), 'month');
             })[0];
 
-            $scope.filter.periodo = $scope.selectedPeriodo.id;
+           // $scope.filter.periodo = $scope.selectedPeriodo.id;
             $scope.getByPeriodo($scope.selectedPeriodo.id);
 
-            api.saldosEgresos().add('saldos/consolidado/periodo/' + $scope.filter.periodo).get().then(function(response){
+            api.saldosEgresos().add('saldos/consolidado/periodo/' + $scope.selectedPeriodo.id).get().then(function(response){
                 $rootScope.saldoEgresos = response.data;
             }).catch(function(e){
                 $rootScope.loading = false;
@@ -570,8 +570,75 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
     }
 
     $scope.getByPeriodo = function(id){
-        $scope.getEgresos(id);
+        var filter = "?";
+        $scope.loading = true;
+
+        if($scope.filter.categoria){
+            filter += "categoriadto="+$scope.filter.categoria+"&";
+        }
+
+        if($scope.tercero){
+            filter += "tercero="+$scope.filter.tercero.id+"&";
+        }
+
+        if($scope.filter.estadodocumento){
+            filter += "estadodocumento="+$scope.filter.estadodocumento+"&";
+        }
+
+        
+        if($scope.filter.periodo){
+            filter += "periodo="+$scope.filter.periodo+"&";
+        }
+
+        console.log(filter);
+
+        api.egresos().add(filter).get().then(function(response){
+            if(response  && response.data.length > 0){
+                $rootScope.egresos = response.data;
+                $rootScope.mainLoading  = false;
+            }
+            
+            $scope.loading = false;
+        }).catch(function(e){
+            $scope.loading = false;
+        });  
     }
+
+    $scope.$watch("filter.tercero", function(n, o){
+       if(n){
+          $scope.getbyTercero(n);
+       }
+    });
+
+    $scope.getbyTercero = function(id){
+        var filter = "?";
+        $scope.loading = true;
+
+        if($scope.filter.categoria){
+            filter += "categoriadto="+$scope.filter.categoria+"&";
+        }
+
+        if($scope.filter.tercero){
+            filter += "tercero="+$scope.filter.tercero.id+"&";
+        }
+
+        if($scope.filter.estadodocumento){
+            filter += "estadodocumento="+$scope.filter.estadodocumento+"&";
+        }
+
+        console.log(filter);
+
+        api.egresos().add(filter).get().then(function(response){
+            if(response  && response.data.length > 0){
+                $rootScope.egresos = response.data;
+                $rootScope.mainLoading  = false;
+            }
+            
+            $scope.loading = false;
+        }).catch(function(e){
+            $scope.loading = false;
+        });  
+     }
 
     $scope.getEgresos = function(id){
         api.egresos().add("/periodo/" + (id ? id : "")).get().then(function(response){

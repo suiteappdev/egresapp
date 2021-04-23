@@ -191,10 +191,10 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
                 return moment(p.finicial).isSame(moment(new Date()), 'month');
             })[0];
 
-            $scope.filter.periodo = $scope.selectedPeriodo.id;
-            $scope.getDocuments($scope.filter.periodo);
+            //$scope.filter.periodo = $scope.selectedPeriodo.id;
+            $scope.getDocuments($scope.selectedPeriodo.id);
 
-            api.saldosIngresos().add('saldos/consolidado/').add("periodo/" + $scope.filter.periodo).get().then(function(response){
+            api.saldosIngresos().add('saldos/consolidado/').add("periodo/" + $scope.selectedPeriodo.id).get().then(function(response){
                 $rootScope.saldoIngresos = response.data;
             }).catch(function(e){
                 $scope.loading = false;
@@ -240,6 +240,42 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
     $scope.getByPeriodo = function(id){
         $scope.getDocuments(id);
     }
+
+    $scope.$watch("filter.tercero", function(n, o){
+        if(n){
+           $scope.getbyTercero(n);
+        }
+     });
+
+    $scope.getbyTercero = function(id){
+        var filter = "?";
+        $scope.loading = true;
+
+        if($scope.filter.categoria){
+            filter += "categoriadto="+$scope.filter.categoria+"&";
+        }
+
+        if($scope.filter.tercero){
+            filter += "tercero="+$scope.filter.tercero.id+"&";
+        }
+
+        if($scope.filter.estadodocumento){
+            filter += "estadodocumento="+$scope.filter.estadodocumento+"&";
+        }
+
+        console.log(filter);
+
+        api.ingresos().add(filter).get().then(function(response){
+            if(response  && response.data.length > 0){
+                $rootScope.ingresos = response.data;
+                $rootScope.mainLoading  = false;
+            }
+            
+            $scope.loading = false;
+        }).catch(function(e){
+            $scope.loading = false;
+        });  
+     }
 
     $scope.getSaldos = function(){
         api.saldosIngresos().add('saldos/consolidado/').add("periodo/" + $scope.filter.periodo).get().then(function(response){

@@ -129,8 +129,8 @@
                                             <td>
                                                 <input type="number" id="currency-{{$index}}"  ng-change="calc('$')" ng-model="discount.currency" placeholder="Valor $" class="form-control input-sm">
                                             </td>
-                                            <td colspan="4 ">
-                                                <input type="number" id="percent-{{$index}}" min="0" max="100" ng-change="calc('%')" ng-model="discount.percent" placeholder="Valor %" class="form-control input-sm">
+                                            <td >
+                                                <input type="number"  style="text-align: left;"  id="percent-{{$index}}" min="0" max="100" ng-change="calc('%')" ng-model="discount.percent" placeholder="Valor %" class="form-control input-sm">
                                             </td>
                                             <td>
                                                 <button class="btn btn-sm pull-right" ng-click="removeDiscountEdit()"><i class="fa fa-trash"></i></button>
