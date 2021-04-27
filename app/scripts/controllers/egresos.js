@@ -504,7 +504,7 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             });
         }
 
-        api.periodo().get().then(function(response){
+        api.periodo().add("?_limit=-1").get().then(function(response){
             $scope.periodos = response.data;
             $scope.selectedPeriodo = response.data.filter(function(p){
                 return moment(p.finicial).isSame(moment(new Date()), 'month');
@@ -529,26 +529,26 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             $scope.loading = false;
         });
 
-        api.terceros().get().then(function(response){
+        api.terceros().add("?_limit=-1").get().then(function(response){
             $scope.terceros = response.data;
             $scope.tercerosCatalogo = $scope.terceros;
         }).catch(function(e){
             $scope.loading = false;
         });
 
-        api.estados_documentos().get().then(function(response){
+        api.estados_documentos().add("?_limit=-1").get().then(function(response){
             $scope.estados = response.data;
         }).catch(function(e){
             $rootScope.loading = false;
         });
 
-        api.tipo_descuentos().get().then(function(response){
+        api.tipo_descuentos().add("?_limit=-1").get().then(function(response){
             $rootScope.descuentos = response.data;
         }).catch(function(e){
             $scope.loading = false;
         });
 
-        api.formasPagos().get().then(function(response){
+        api.formasPagos().add("?_limit=-1").get().then(function(response){
             $scope.formasPagos = response.data;
         }).catch(function(e){
             $scope.loading = false;
@@ -590,7 +590,7 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             filter += "periodo="+$scope.filter.periodo+"&";
         }
 
-        console.log(filter);
+        filter +="_limit=-1"
 
         api.egresos().add(filter).get().then(function(response){
             if(response  && response.data.length > 0){
@@ -625,6 +625,8 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
         if($scope.filter.estadodocumento){
             filter += "estadodocumento="+$scope.filter.estadodocumento+"&";
         }
+
+        filter +="_limit=-1"
 
         console.log(filter);
 

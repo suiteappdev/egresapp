@@ -65,7 +65,7 @@
                 <tr class="text-center" ng-show="(filtered.length == 0)">
                     <td colspan="8">No hay datos para mostrar</td>
                 </tr>
-                <tr pagination-id="pagination-terceros" dir-paginate="record in filtered = (terceros | filter  : {categoriadto : {id : filter.categoria}, estado : filter.estado, nombre: filter.search }) | orderBy: '-createdAt' | itemsPerPage: 5">
+                <tr pagination-id="pagination-terceros" dir-paginate="record in filtered = (terceros | filter  : {categoriadto : {id : filter.categoria}, estado : filter.estado, nombre: filter.search })  | orderBy: '-createdAt' | itemsPerPage: 5">
                     <td class="capitilize">{{record.nombre.toLowerCase()}}</td>
                     <td>{{record.razonsocial.toLowerCase()}}</td>
                     <td>{{record.email.toLowerCase() || 'no definido'}}</td>

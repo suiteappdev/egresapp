@@ -184,7 +184,7 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             $scope.loading = false;
         });
 
-        api.periodo().get().then(function(response){
+        api.periodo().add("?_limit=-1").get().then(function(response){
             $scope.periodos = response.data;
             
             $scope.selectedPeriodo = response.data.filter(function(p){
@@ -204,27 +204,27 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             $rootScope.loading = false;
         });
 
-        api.categoria().get().then(function(response){
+        api.categoria().add("?_limit=-1").get().then(function(response){
             $scope.categorias = response.data;
         }).catch(function(e){
             $rootScope.loading = false;
         });
 
-        api.terceros().get().then(function(response){
+        api.terceros().add("?_limit=-1").get().then(function(response){
             $scope.terceros = response.data;
             $scope.tercerosCatalogo = $scope.terceros;
         }).catch(function(e){
             $scope.loading = false;
         });
 
-        api.estados_documentos().get().then(function(response){
+        api.estados_documentos().add("?_limit=-1").get().then(function(response){
             $scope.estados = response.data;
         }).catch(function(e){
             $scope.loading = false;
         });
 
 
-        api.formasPagos().get().then(function(response){
+        api.formasPagos().add("?_limit=-1").get().then(function(response){
             $scope.formasPagos = response.data;
         }).catch(function(e){
             $scope.loading = false;
@@ -263,7 +263,8 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             filter += "estadodocumento="+$scope.filter.estadodocumento+"&";
         }
 
-        console.log(filter);
+        filter += "_limit=-1"
+
 
         api.ingresos().add(filter).get().then(function(response){
             if(response  && response.data.length > 0){

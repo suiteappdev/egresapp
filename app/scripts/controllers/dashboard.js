@@ -19,6 +19,28 @@ function dashboardCtrl($scope, $rootScope, api, menu, $modal, $stateParams, $tim
             $scope.loading = false;
         });
     });
+
+    $scope.compare = function(consolidado){
+        var fp  = this.fp;
+
+        if(consolidado && consolidado.result_egresos){
+            if( consolidado.result_egresos.filter(function(e){
+                return  (fp.forma_pago == e.forma_pago);
+            })[0]){
+                var egreso = consolidado.result_egresos.filter(function(e){
+                    return  (fp.forma_pago == e.forma_pago);
+                })[0]
+    
+                if(egreso){
+                    this.fp.compare = true;
+                    this.fp.gtotal = (this.fp.total - egreso.total)
+                    this.fp.egreso =  egreso.total
+                }
+            }
+
+        }
+
+    }
     
     $scope.load = function(){
        api.formasPagos().add('saldos').get().then(function(response){

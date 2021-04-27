@@ -16,40 +16,46 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-3 text-center">
+                            <div class="col-md-4 text-center">
                                 <div class="small">
                                     <i class="fa fa-money"></i> Total Ingreso
                                 </div>
                                 <div>
-                                    <h1 class="font-extra-bold m-t-xl m-b-xs">
+                                    <h1 class="font-extra-bold m-t-xl m-b-xs text-success">
                                         {{$root.saldoIngresos.total_finalizados|| 0  |  currency:"$":0}}
                                     </h1>
                                     <small>Saldo total de ingresos hasta la fecha</small>
                                 </div>
                                 <div class="small m-t-xl">
-                                    <i class="fa fa-money"></i> Data from January
+                                    <i class="fa fa-money"></i> Periodo :
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="text-center small">
-                                    <i class="fa fa-money"></i> Relación de ingresos vs egresos durante un año
-                                </div>
-                                <div class="flot-chart" style="height: 160px">
-                                    <div flot class="flot-chart-content" dataset="chartUsersData" options="chartUsersOptions"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 text-center">
+                            <div class="col-md-4 text-center">
                                 <div class="small">
-                                    <i class="fa fa-money"></i>Total egresos
+                                    <i class="fa fa-money"></i> Saldo
                                 </div>
                                 <div>
-                                    <h1 class="font-extra-bold m-t-xl m-b-xs">
+                                    <h1 class="font-extra-bold m-t-xl m-b-xs text-success">
+                                        {{($root.saldoIngresos.total_finalizados || 0) - ($root.saldoEgresos.total_finalizado || 0)|| 0  |  currency:"$":0}}
+                                    </h1>
+                                    <small>Saldo total de ingresos hasta la fecha</small>
+                                </div>
+                                <div class="small m-t-xl">
+                                    <i class="fa fa-money"></i> Periodo :
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <div class="small">
+                                    <i class="fa fa-money"></i> Total egresos
+                                </div>
+                                <div>
+                                    <h1 class="font-extra-bold m-t-xl m-b-xs text-danger">
                                         {{$root.saldoEgresos.total_finalizado || 0  |  currency:"$":0 }}
                                     </h1>
                                     <small>Saldo total de egresos hasta la fecha</small>
                                 </div>
                                 <div class="small m-t-xl">
-                                    <i class="fa fa-money"></i> Saldo total de egresos hasta la fecha
+                                    <i class="fa fa-money"></i> Periodo
                                 </div>
                             </div>
                         </div>
@@ -67,14 +73,41 @@
             <div class="col-lg-3" ng-repeat="fp in consolidado.result_ingresos">
                 <div class="hpanel">
                     <div class="panel-body text-center h-200">
-                        <i class="pe-7s-graph1 fa-4x"></i>
+                        <i class="fa fa-money fa-4x"></i>
         
-                        <h1 class="m-xs"> {{fp.total |  currency:"$":0}}</h1>
+                        <h3 class="m-xs"> {{fp.total | currency:"$":0}}</h3>
         
                         <h3 class="font-extra-bold no-margins text-success">
                            {{fp.forma_pago }}
                         </h3>
-                        <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit vestibulum.</small>
+                        <table class="table table-striped" ng-show="fp.compare" ng-init="compare(consolidado)">
+                            <thead>
+                            <tr class="text-left">
+                                <th>F. pago</th>
+                                <th>Valor</th>
+                            </tr>
+                            </thead>
+                            <tbody >
+                            <tr class="text-left">
+                                <td>
+                                    <span class="text-success font-bold">Entrada</span>
+                                </td>
+                                <td>{{fp.total | currency:"$":0}}</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td>
+                                    <span class="text-danger font-bold">Salida</span>
+                                </td>
+                                <td>{{fp.egreso | currency:"$":0}}</td>
+                            </tr>
+                            <tr class="text-left">
+                                    <td>
+                                <span class="font-bold"><strong>Total</strong></span>
+                                </td>
+                                <td><strong>{{fp.gtotal | currency:"$":0}}</strong> </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="panel-footer">
                      {{consolidado.result_ingresos.length}} - registros
