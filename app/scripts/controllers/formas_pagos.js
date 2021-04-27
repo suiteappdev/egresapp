@@ -51,7 +51,7 @@ function formas_pagosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, n
   });
 
  $scope.load = function(){
-     api.formasPagos().get().then(function(response){
+     api.formasPagos().add("?_limit=-1").get().then(function(response){
          $rootScope.formas_pagos = response.data;
          $rootScope.loading = false;
      }).catch(function(e){

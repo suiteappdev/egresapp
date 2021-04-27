@@ -50,7 +50,7 @@ function categoriasCtrl($scope, $rootScope, api, menu, $modal, $stateParams, not
   });
 
  $scope.load = function(){
-     api.tipo_descuentos().get().then(function(response){
+     api.tipo_descuentos().add("?_limit=-1").get().then(function(response){
          $rootScope.descuentos = response.data;
          $rootScope.loading = false;
      }).catch(function(e){

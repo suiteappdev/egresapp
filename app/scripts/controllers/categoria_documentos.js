@@ -50,14 +50,14 @@ function categorias_documentosCtrl($scope, $rootScope, api, menu, $modal, $state
   });
 
  $scope.load = function(){
-     api.categoria().get().then(function(response){
+     api.categoria().add("?_limit=-1").get().then(function(response){
          $rootScope.categorias_documentos = response.data;
          $rootScope.loading = false;
      }).catch(function(e){
          $rootScope.loading = false;
      });
 
-     api.sub_categoria().get().then(function(response){
+     api.sub_categoria().add("?_limit=-1").get().then(function(response){
         $rootScope.sub_categoria = response.data;
         $rootScope.loading = false;
     }).catch(function(e){

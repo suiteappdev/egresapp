@@ -236,28 +236,28 @@ function periodosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
             });
         }
 
-        api.periodo().get().then(function(response){
+        api.periodo().add("?_limit=-1").get().then(function(response){
             $rootScope.periodos = response.data;
             $rootScope.loading = false;
         }).catch(function(e){
             $rootScope.loading = false;
         });
 
-        api.categoria().get().then(function(response){
+        api.categoria().add("?_limit=-1").get().then(function(response){
             $scope.categorias = response.data;
             $rootScope.loading = false;
         }).catch(function(e){
             $rootScope.loading = false;
         });
 
-        api.terceros().get().then(function(response){
+        api.terceros().add("?_limit=-1").get().then(function(response){
             $scope.terceros = response.data;
             $rootScope.loading = false;
         }).catch(function(e){
             $rootScope.loading = false;
         });
 
-        api.estados_documentos().get().then(function(response){
+        api.estados_documentos().add("?_limit=-1").get().then(function(response){
             $scope.estados = response.data;
             $rootScope.loading = false;
         }).catch(function(e){
@@ -265,7 +265,7 @@ function periodosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
         });
 
 
-        api.formasPagos().get().then(function(response){
+        api.formasPagos().add("?_limit=-1").get().then(function(response){
             $scope.formasPagos = response.data;
             $rootScope.loading = false;
         }).catch(function(e){

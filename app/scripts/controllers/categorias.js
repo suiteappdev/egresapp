@@ -50,7 +50,7 @@ function categoriasCtrl($scope, $rootScope, api, menu, $modal, $stateParams, not
   });
 
  $scope.load = function(){
-     api.categoria_padre().get().then(function(response){
+     api.categoria_padre().add("?_limit=-1").get().then(function(response){
          $rootScope.categorias = response.data;
          $rootScope.loading = false;
      }).catch(function(e){
