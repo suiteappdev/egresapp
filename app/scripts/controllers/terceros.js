@@ -334,7 +334,11 @@ function tercerosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
          var obj = {};
 
          obj.nombre = $rootScope.formEdit.nombre;
-         obj.categoriadto = $rootScope.formEdit.categoriadto._id;
+
+        if($scope.selectedCategory){
+            obj.categoriadto =$scope.selectedCategory;
+        }
+
          obj.telefono = $rootScope.formEdit.telefono;
          obj.razonsocial = $rootScope.formEdit.razonsocial;
          obj.direccion = $rootScope.formEdit.direccion;

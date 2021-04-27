@@ -46,7 +46,7 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label>Categoria <span class="text-danger">*</span>  <span class="text-danger font-mini" ng-show="(formRecordEdit['Categoria'].$touched && formRecordEdit['Categoria'].$invalid)">requerido.</span></label>
-                        <select class="form-control" ng-model="formEdit.categoriadto.id"  name="Categoria" required>
+                        <select  class="form-control" ng-model="selectedCategory"  name="Categoria" required>
                             <option ng-selected="categoria.id == formEdit.categoriadto.id" ng-repeat="categoria in categorias" ng-value="categoria.id">{{categoria.descripcioncat}}</option>
                          </select>
                     </div>
