@@ -80,7 +80,7 @@
                         <h3 class="font-extra-bold no-margins text-success">
                            {{fp.forma_pago }}
                         </h3>
-                        <table class="table table-striped" ng-show="fp.compare" ng-init="compare(consolidado)">
+                        <table class="table table-striped" ng-init="compare(consolidado)">
                             <thead>
                             <tr class="text-left">
                                 <th>F. pago</th>
@@ -92,19 +92,19 @@
                                 <td>
                                     <span class="text-success font-bold">Entrada</span>
                                 </td>
-                                <td>{{fp.total | currency:"$":0}}</td>
+                                <td>{{fp.total || 0 | currency:"$":0}}</td>
                             </tr>
                             <tr class="text-left">
                                 <td>
                                     <span class="text-danger font-bold">Salida</span>
                                 </td>
-                                <td>{{fp.egreso | currency:"$":0}}</td>
+                                <td>{{fp.egreso  || 0 | currency:"$":0}}</td>
                             </tr>
                             <tr class="text-left">
                                     <td>
                                 <span class="font-bold"><strong>Total</strong></span>
                                 </td>
-                                <td><strong>{{fp.gtotal | currency:"$":0}}</strong> </td>
+                                <td><strong>{{fp.gtotal || 0 | currency:"$":0}}</strong> </td>
                             </tr>
                             </tbody>
                         </table>
