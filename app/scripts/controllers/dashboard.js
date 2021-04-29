@@ -43,18 +43,20 @@ function dashboardCtrl($scope, $rootScope, api, menu, $modal, $stateParams, $tim
     }
     
     $scope.load = function(){
-       api.formasPagos().add('saldos').get().then(function(response){
-            $scope.consolidado = response.data;
-            $scope.loading = false;
-        }).catch(function(e){
-            $scope.loading = false;
-        });
 
         api.periodo().get().then(function(response){
             $scope.periodos = response.data;
+
             $scope.selectedPeriodo = response.data.filter(function(p){
                 return moment(p.finicial).isSame(moment(new Date()), 'month');
             })[0];
+
+            api.formasPagos().add('saldos/').add($scope.selectedPeriodo.id).add("/").add($scope.selectedPeriodo.id).get().then(function(response){
+                $scope.consolidado = response.data;
+                $scope.loading = false;
+            }).catch(function(e){
+                $scope.loading = false;
+            });
 
             $scope.filter.periodo = $scope.selectedPeriodo.id;
 

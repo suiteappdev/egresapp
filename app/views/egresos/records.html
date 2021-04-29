@@ -7,17 +7,29 @@
     <div class="hpanel">
         <div class="panel-body">
             <h3>Listado de egresos<span class="pull-right"><div class="list-item-container">
-                <div class="list-item">
-                    <h3 class="no-margins font-extra-bold text-success">{{saldoEgresos.total_finalizado  | currency:"$"}}</h3>
-                    <small>Finalizados</small>
-                </div>
-                <br />
-                <div class="list-item">
-                    <h3 class="no-margins font-extra-bold text-color3">{{saldoEgresos.total_pendiente | currency:"$"}}</h3>
-                    <small>Pendientes</small>
-                </div>
             </div></span></h3>
             <p>Puedes crear modificar y eliminar tus egresos.</p>
+            <br>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="list-item">
+                        <h3 class="no-margins font-extra-bold text-success">{{saldoEgresos.total_finalizado  | currency:"$"}}</h3>
+                        <small>Finalizados</small>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="list-item">
+                        <h3 class="no-margins font-extra-bold text-warning">{{saldoEgresos.total_pendiente | currency:"$"}}</h3>
+                        <small>Pendientes</small>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="list-item">
+                        <h3 class="no-margins font-extra-bold text-success">{{(saldoEgresos.total_finalizado + saldoEgresos.total_pendiente) | currency:"$"}}</h3>
+                        <small>Total</small>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

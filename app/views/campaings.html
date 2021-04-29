@@ -6,7 +6,39 @@
 
 <!-- Main Wrapper -->
 <div id="wrapper">
-    <div class="content" ui-view ng-controller="dashboardCtrl" ng-init="load()" style="padding: 25px 40px 40px 40px;min-width: 320px;height: 1500px;">
+    <div class="content" ui-view ng-controller="dashboardCtrl" ng-init="load()" style="padding: 25px 40px 40px 40px;height: 1800px;">
+        <div class="row">
+            <div class="col-lg-12 ">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div panel-tools></div>
+                        Obtener estadisticas por periodos
+                    </div>
+                    <div class="panel-body">
+                        <div class="row m-t">
+                            <div class="col-md-2">
+                                <label>Periodo Inicial</label>
+                                <select  class="form-control m-b" ng-model="filter.inicial"  name="periodo">
+                                    <option ng-selected="filter.periodo == periodo.id" ng-repeat="periodo in periodos"  ng-value="periodo._id">{{periodo.mes}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Periodo Final</label>
+                                <select class="form-control m-b" ng-model="filter.final"  name="periodo">
+                                    <option ng-selected="filter.periodo == periodo.id" ng-repeat="periodo in periodos"  ng-value="periodo._id">{{periodo.mes}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                            <span class="pull-right">
+
+                            </span>
+                       Ultima actualización
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-lg-12 ">
                 <div class="hpanel">
@@ -22,12 +54,26 @@
                                 </div>
                                 <div>
                                     <h1 class="font-extra-bold m-t-xl m-b-xs text-success">
-                                        {{$root.saldoIngresos.total_finalizados|| 0  |  currency:"$":0}}
+                                        {{$root.saldoIngresos.total_finalizados || 0  | currency:"$"}}
                                     </h1>
-                                    <small>Saldo total de ingresos hasta la fecha</small>
+                                    <small>Total de ingresos</small>
                                 </div>
                                 <div class="small m-t-xl">
                                     <i class="fa fa-money"></i> Periodo :
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <div class="small">
+                                    <i class="fa fa-money"></i>Total Egresos
+                                </div>
+                                <div>
+                                    <h1 class="font-extra-bold m-t-xl m-b-xs text-danger">
+                                        {{$root.saldoEgresos.total_finalizado || 0  |  currency:"$":0 }}
+                                    </h1>
+                                    <small>Total de egresos</small>
+                                </div>
+                                <div class="small m-t-xl">
+                                    <i class="fa fa-money"></i> Periodo
                                 </div>
                             </div>
                             <div class="col-md-4 text-center">
@@ -38,24 +84,10 @@
                                     <h1 class="font-extra-bold m-t-xl m-b-xs text-success">
                                         {{($root.saldoIngresos.total_finalizados || 0) - ($root.saldoEgresos.total_finalizado || 0)|| 0  |  currency:"$":0}}
                                     </h1>
-                                    <small>Saldo total de ingresos hasta la fecha</small>
+                                    <small>Saldo total a favor</small>
                                 </div>
                                 <div class="small m-t-xl">
                                     <i class="fa fa-money"></i> Periodo :
-                                </div>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <div class="small">
-                                    <i class="fa fa-money"></i> Total egresos
-                                </div>
-                                <div>
-                                    <h1 class="font-extra-bold m-t-xl m-b-xs text-danger">
-                                        {{$root.saldoEgresos.total_finalizado || 0  |  currency:"$":0 }}
-                                    </h1>
-                                    <small>Saldo total de egresos hasta la fecha</small>
-                                </div>
-                                <div class="small m-t-xl">
-                                    <i class="fa fa-money"></i> Periodo
                                 </div>
                             </div>
                         </div>
