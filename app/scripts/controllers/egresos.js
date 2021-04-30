@@ -510,7 +510,7 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
                 return moment(p.finicial).isSame(moment(new Date()), 'month');
             })[0];
 
-           // $scope.filter.periodo = $scope.selectedPeriodo.id;
+            $scope.filter.periodo = $scope.selectedPeriodo.id;
             $scope.getByPeriodo($scope.selectedPeriodo.id);
 
             api.saldosEgresos().add('saldos/consolidado/periodo/' + $scope.selectedPeriodo.id).get().then(function(response){
@@ -586,8 +586,8 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
         }
 
         
-        if($scope.filter.periodo){
-            filter += "periodo="+$scope.filter.periodo+"&";
+        if($scope.selectedPeriodo){
+            filter += "periodo="+$scope.selectedPeriodo.id+"&";
         }
 
         filter +="_limit=-1"
