@@ -191,7 +191,7 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
                 return moment(p.finicial).isSame(moment(new Date()), 'month');
             })[0];
 
-            //$scope.filter.periodo = $scope.selectedPeriodo.id;
+            $scope.filter.periodo = $scope.selectedPeriodo.id;
             $scope.getDocuments($scope.selectedPeriodo.id);
 
             api.saldosIngresos().add('saldos/consolidado/').add("periodo/" + $scope.selectedPeriodo.id).get().then(function(response){
