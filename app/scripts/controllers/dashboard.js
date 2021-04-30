@@ -47,26 +47,30 @@ function dashboardCtrl($scope, $rootScope, api, menu, $modal, $stateParams, $tim
         api.periodo().get().then(function(response){
             $scope.periodos = response.data;
 
-            $scope.selectedPeriodo = response.data.filter(function(p){
+            $scope.selectedPeriodoInicial = response.data.filter(function(p){
                 return moment(p.finicial).isSame(moment(new Date()), 'month');
             })[0];
 
-            api.formasPagos().add('saldos/').add($scope.selectedPeriodo.id).add("/").add($scope.selectedPeriodo.id).get().then(function(response){
+            $scope.selectedPeriodoFinal = response.data.filter(function(p){
+                return moment(p.finicial).isSame(moment(new Date()), 'month');
+            })[0];
+
+            api.formasPagos().add('saldos/').add($scope.selectedPeriodoInicial.id).add("/").add($scope.selectedPeriodoInicial.id).get().then(function(response){
                 $scope.consolidado = response.data;
                 $scope.loading = false;
             }).catch(function(e){
                 $scope.loading = false;
             });
 
-            $scope.filter.periodo = $scope.selectedPeriodo.id;
+            $scope.filter.periodo = $scope.selectedPeriodoFinal.id;
 
-            api.saldosIngresos().add('saldos/consolidado/').add("periodo/" + $scope.filter.periodo).get().then(function(response){
+            api.saldosIngresos().add('saldos/consolidado/').add("periodo/" + $scope.selectedPeriodoInicial.id).get().then(function(response){
                 $rootScope.saldoIngresos = response.data;
             }).catch(function(e){
                 $scope.loading = false;
             });
 
-            api.saldosEgresos().add('saldos/consolidado/').add("periodo/" + $scope.filter.periodo).get().then(function(response){
+            api.saldosEgresos().add('saldos/consolidado/').add("periodo/" +  $scope.selectedPeriodoInicial.id).get().then(function(response){
                 $rootScope.saldoEgresos = response.data;
             }).catch(function(e){
                 $scope.loading = false;
