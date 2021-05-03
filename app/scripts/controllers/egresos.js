@@ -585,9 +585,8 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             filter += "estadodocumento="+$scope.filter.estadodocumento+"&";
         }
 
-        
-        if($scope.selectedPeriodo){
-            filter += "periodo="+$scope.selectedPeriodo.id+"&";
+        if(id){
+            filter += "periodo="+id+"&";
         }
 
         filter +="_limit=-1"

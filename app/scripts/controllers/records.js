@@ -158,6 +158,8 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
                 $rootScope.mainLoading = false;
             }
 
+            $rootScope.mainLoading = false;
+
         }).catch(function(e){
             $rootScope.mainLoading = false;
         });  
