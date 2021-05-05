@@ -10,7 +10,48 @@ angular
 
 function dashboardCtrl($scope, $rootScope, api, menu, $modal, $stateParams, $timeout) {
     $scope.filter = {};
+    $scope.modal = {};
+    $scope.openTo = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.modal.to = !$scope.modal.to;
+    };
 
+    $scope.openFrom = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.modal.from = !$scope.modal.from;
+    };
+
+    $scope.dateOptions = {
+        formatYear: 'yy',
+        startingDay: 1
+    };
+
+    $scope.query = function(){
+        api.saldosIngresos().add('saldos/consolidado/').add("periodo/" + $scope.selectedPeriodoInicial.id).add("/" + moment($scope.fechaInicial).format("YYYY-MM-DD")).add("/" + moment($scope.fechaFinal).format("YYYY-MM-DD")).get().then(function(response){
+            $rootScope.saldoIngresos = response.data;
+        }).catch(function(e){
+            $scope.loading = false;
+        });
+
+        api.saldosEgresos().add('saldos/consolidado/').add("periodo/" +  $scope.selectedPeriodoInicial.id).add("/" +moment($scope.fechaInicial).format("YYYY-MM-DD")).add("/" + moment($scope.fechaFinal).format("YYYY-MM-DD")).get().then(function(response){
+            $rootScope.saldoEgresos = response.data;
+        }).catch(function(e){
+            $scope.loading = false;
+        });
+
+        api.formasPagos().add('saldos-range').add("/" +moment($scope.fechaInicial).format("YYYY-MM-DD")).add("/" + moment($scope.fechaFinal).format("YYYY-MM-DD")).get().then(function(response){
+            $scope.consolidado = response.data;
+            $scope.loading = false;
+        }).catch(function(e){
+            $scope.loading = false;
+        });
+
+    }
+
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
     $rootScope.$on("reload_saldos", function(){
         api.formasPagos().add('saldos').get().then(function(response){
             $scope.consolidado = response.data;

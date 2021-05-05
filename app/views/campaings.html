@@ -15,19 +15,20 @@
                         Obtener estadisticas por periodos
                     </div>
                     <div class="panel-body">
-                        <div class="row m-t">
-                            <div class="col-md-2">
-                                <label>Periodo Inicial</label>
-                                <select  class="form-control m-b" ng-model="filter.inicial"  name="periodo">
-                                    <option ng-selected="filter.periodo == periodo.id" ng-repeat="periodo in periodos"  ng-value="periodo._id">{{periodo.mes}}</option>
-                                </select>
+                        <div class="col-lg-4">
+                            <div class="input-daterange input-group" id="datepicker">
+                                <input placeholder="Fecha desde" ng-click="openFrom($event)" type="text" class="input-sm form-control" name="start" datepicker-popup="{{format}}"
+                                show-button-bar="false" name="Fecha Inicial" required ng-model="fechainicial" is-open="modal.from" datepicker-options="dateOptions"
+                              ng-required="true" close-text="Close"/>
+                                <span class="input-group-addon">a</span>
+
+                                <input placeholder="Fecha hasta" ng-click="openTo($event)" type="text" class="input-sm form-control" name="start" datepicker-popup="{{format}}"
+                                show-button-bar="false" name="Fecha Inicial" required ng-model="fechafinal" is-open="modal.to" datepicker-options="dateOptions"
+                              ng-required="true" close-text="Close" type="text" class="input-sm form-control" name="end"/>
                             </div>
-                            <div class="col-md-2">
-                                <label>Periodo Final</label>
-                                <select class="form-control m-b" ng-model="filter.final"  name="periodo">
-                                    <option ng-selected="filter.periodo == periodo.id" ng-repeat="periodo in periodos"  ng-value="periodo._id">{{periodo.mes}}</option>
-                                </select>
-                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary" ng-click="query()"><i class="fa fa-search"></i>Consultar</button>
                         </div>
                     </div>
                     <div class="panel-footer">

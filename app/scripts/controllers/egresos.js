@@ -507,7 +507,7 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
         api.periodo().add("?_limit=-1").get().then(function(response){
             $scope.periodos = response.data;
             $scope.selectedPeriodo = response.data.filter(function(p){
-                return moment(p.finicial).isSame(moment(new Date()), 'month');
+                return moment(p.finicial).isSame(moment(new Date()), 'month') && moment(p.finicial).isSame(moment(new Date()), 'year');
             })[0];
 
             $scope.filter.periodo = $scope.selectedPeriodo.id;
