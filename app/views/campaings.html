@@ -18,12 +18,12 @@
                         <div class="col-lg-4">
                             <div class="input-daterange input-group" id="datepicker">
                                 <input placeholder="Fecha desde" ng-click="openFrom($event)" type="text" class="input-sm form-control" name="start" datepicker-popup="{{format}}"
-                                show-button-bar="false" name="Fecha Inicial" required ng-model="fechainicial" is-open="modal.from" datepicker-options="dateOptions"
+                                show-button-bar="false" name="Fecha Inicial" required ng-model="$parent.fechainicial" is-open="modal.from" datepicker-options="dateOptions"
                               ng-required="true" close-text="Close"/>
                                 <span class="input-group-addon">a</span>
 
                                 <input placeholder="Fecha hasta" ng-click="openTo($event)" type="text" class="input-sm form-control" name="start" datepicker-popup="{{format}}"
-                                show-button-bar="false" name="Fecha Inicial" required ng-model="fechafinal" is-open="modal.to" datepicker-options="dateOptions"
+                                show-button-bar="false" name="Fecha Inicial" required ng-model="$parent.fechafinal" is-open="modal.to" datepicker-options="dateOptions"
                               ng-required="true" close-text="Close" type="text" class="input-sm form-control" name="end"/>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div>
                                     <h1 class="font-extra-bold m-t-xl m-b-xs text-success">
-                                        {{$root.saldoIngresos.total_finalizados || 0  | currency:"$"}}
+                                        {{$root.saldoIngresos.total_finalizado || $root.saldoIngresos.total_finalizados || 0  | currency:"$"}}
                                     </h1>
                                     <small>Total de ingresos</small>
                                 </div>
@@ -69,7 +69,7 @@
                                 </div>
                                 <div>
                                     <h1 class="font-extra-bold m-t-xl m-b-xs text-danger">
-                                        {{$root.saldoEgresos.total_finalizado || 0  |  currency:"$":0 }}
+                                        {{$root.saldoEgresos.total_finalizado || $root.saldoEgresos.total_finalizados || 0  |  currency:"$":0 }}
                                     </h1>
                                     <small>Total de egresos</small>
                                 </div>
@@ -83,7 +83,7 @@
                                 </div>
                                 <div>
                                     <h1 class="font-extra-bold m-t-xl m-b-xs text-success">
-                                        {{($root.saldoIngresos.total_finalizados || 0) - ($root.saldoEgresos.total_finalizado || 0)|| 0  |  currency:"$":0}}
+                                        {{($root.saldoIngresos.total_finalizado || $root.saldoIngresos.total_finalizados || 0) - ($root.saldoEgresos.total_finalizado || $root.saldoEgresos.total_finalizados || 0)|| 0  |  currency:"$":0}}
                                     </h1>
                                     <small>Saldo total a favor</small>
                                 </div>

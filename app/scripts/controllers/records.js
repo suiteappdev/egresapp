@@ -198,6 +198,7 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
 
             api.saldosIngresos().add('saldos/consolidado/').add("periodo/" + $scope.selectedPeriodo.id).get().then(function(response){
                 $rootScope.saldoIngresos = response.data;
+                console.log("saldos ingresos",  response.data);
             }).catch(function(e){
                 $scope.loading = false;
             });

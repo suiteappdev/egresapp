@@ -29,19 +29,19 @@ function dashboardCtrl($scope, $rootScope, api, menu, $modal, $stateParams, $tim
     };
 
     $scope.query = function(){
-        api.saldosIngresos().add('saldos/consolidado/').add("periodo/" + $scope.selectedPeriodoInicial.id).add("/" + moment($scope.fechaInicial).format("YYYY-MM-DD")).add("/" + moment($scope.fechaFinal).format("YYYY-MM-DD")).get().then(function(response){
+        api.saldosIngresos().add('saldos/consolidado/').add("periodo/" + $scope.selectedPeriodoInicial.id).add("/" + moment(new Date($scope.fechainicial)).format("YYYY-MM-DD")).add("/" + moment(new Date($scope.fechafinal)).format("YYYY-MM-DD")).get().then(function(response){
             $rootScope.saldoIngresos = response.data;
         }).catch(function(e){
             $scope.loading = false;
         });
 
-        api.saldosEgresos().add('saldos/consolidado/').add("periodo/" +  $scope.selectedPeriodoInicial.id).add("/" +moment($scope.fechaInicial).format("YYYY-MM-DD")).add("/" + moment($scope.fechaFinal).format("YYYY-MM-DD")).get().then(function(response){
+        api.saldosEgresos().add('saldos/consolidado/').add("periodo/" +  $scope.selectedPeriodoInicial.id).add("/" + moment(new Date($scope.fechainicial)).format("YYYY-MM-DD")).add("/" + moment(new Date($scope.fechafinal)).format("YYYY-MM-DD")).get().then(function(response){
             $rootScope.saldoEgresos = response.data;
         }).catch(function(e){
             $scope.loading = false;
         });
 
-        api.formasPagos().add('saldos-range').add("/" +moment($scope.fechaInicial).format("YYYY-MM-DD")).add("/" + moment($scope.fechaFinal).format("YYYY-MM-DD")).get().then(function(response){
+        api.formasPagos().add('saldos-range').add("/" +moment(new Date($scope.fechainicial)).format("YYYY-MM-DD")).add("/" + moment(new Date($scope.fechafinal)).format("YYYY-MM-DD")).get().then(function(response){
             $scope.consolidado = response.data;
             $scope.loading = false;
         }).catch(function(e){

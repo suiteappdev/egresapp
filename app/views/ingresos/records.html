@@ -12,19 +12,19 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="list-item">
-                        <h3 class="no-margins font-extra-bold text-success">{{saldoIngresos.total_finalizados  | currency:"$"}}</h3>
+                        <h3 class="no-margins font-extra-bold text-success">{{saldoIngresos.total_finalizado  | currency:"$"}}</h3>
                         <small>Finalizados</small>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="list-item">
-                        <h3 class="no-margins font-extra-bold text-color3">{{saldoIngresos.total_pendientes  | currency:"$"}}</h3>
+                        <h3 class="no-margins font-extra-bold text-color3">{{saldoIngresos.total_pendiente  | currency:"$"}}</h3>
                         <small>Pendientes</small>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="list-item">
-                        <h3 class="no-margins font-extra-bold text-success">{{saldoIngresos.total_finalizados  + saldoIngresos.total_pendientes  | currency:"$"}}</h3>
+                        <h3 class="no-margins font-extra-bold text-success">{{saldoIngresos.total_finalizado  + saldoIngresos.total_pendiente  | currency:"$"}}</h3>
                         <small>Total</small>
                     </div>
                 </div>
