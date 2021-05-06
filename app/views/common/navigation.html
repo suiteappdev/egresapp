@@ -20,14 +20,21 @@
                 </ul>
             </div>
 
-            <div class="small-chart m-t-sm">
-            <div sparkline spark-data="barProfileData" spark-options="barProfileOptions"></div>
+            <div class="small-chart m-t-sm" ng-show="!loadingEgresos">
+                <div sparkline spark-data="barProfileData" spark-options="barProfileOptions"></div>
             </div>
             <div>
-                <h4 class="font-extra-bold m-b-xs">
-                    {{saldoIngresos.total_finalizados || 0 | currency:"$"}}
-                </h4>
-                <small class="text-muted">Total ingresos generados hasta la fecha.</small>
+                <div class="box-loading" ng-show="loadingEgresos"> 
+                    <div class="splash-title">
+                        <img src="images/loading-bars.svg" width="64" height="64"> 
+                    </div> 
+                </div>
+                <div class="box-data" ng-show="!loadingEgresos">
+                    <h4 class="font-extra-bold m-b-xs">
+                        {{saldoIngresos.total_finalizado || 0 | currency:"$"}}
+                    </h4>
+                    <small class="text-muted">Total ingresos generados hasta la fecha.</small>
+                </div>
             </div>
         </div>
     </div>

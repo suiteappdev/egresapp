@@ -50,45 +50,66 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-4 text-center">
-                                <div class="small">
-                                    <i class="fa fa-money"></i> Total Ingreso
+                                <div class="box-loading" ng-show="loadingIngresos"> 
+                                    <div class="splash-title">
+                                        <img src="images/loading-bars.svg" width="64" height="64"> 
+                                    </div> 
                                 </div>
-                                <div>
-                                    <h1 class="font-extra-bold m-t-xl m-b-xs text-success">
-                                        {{$root.saldoIngresos.total_finalizado || $root.saldoIngresos.total_finalizados || 0  | currency:"$"}}
-                                    </h1>
-                                    <small>Total de ingresos</small>
-                                </div>
-                                <div class="small m-t-xl">
-                                    <i class="fa fa-money"></i> Periodo :
-                                </div>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <div class="small">
-                                    <i class="fa fa-money"></i>Total Egresos
-                                </div>
-                                <div>
-                                    <h1 class="font-extra-bold m-t-xl m-b-xs text-danger">
-                                        {{$root.saldoEgresos.total_finalizado || $root.saldoEgresos.total_finalizados || 0  |  currency:"$":0 }}
-                                    </h1>
-                                    <small>Total de egresos</small>
-                                </div>
-                                <div class="small m-t-xl">
-                                    <i class="fa fa-money"></i> Periodo
+                                <div class="box-data" ng-show="!loadingIngresos">
+                                    <div class="small">
+                                        <i class="fa fa-money"></i> Total Ingreso
+                                    </div>
+                                    <div>
+                                        <h1 class="font-extra-bold m-t-xl m-b-xs text-success">
+                                            {{$root.saldoIngresos.total_finalizado || $root.saldoIngresos.total_finalizados || 0  | currency:"$"}}
+                                        </h1>
+                                        <small>Total de ingresos</small>
+                                    </div>
+                                    <div class="small m-t-xl">
+                                        <i class="fa fa-money"></i> Periodo :
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4 text-center">
-                                <div class="small">
-                                    <i class="fa fa-money"></i> Saldo
+                                <div class="box-loading" ng-show="loadingEgresos"> 
+                                    <div class="splash-title">
+                                        <img src="images/loading-bars.svg" width="64" height="64"> 
+                                    </div> 
                                 </div>
-                                <div>
-                                    <h1 class="font-extra-bold m-t-xl m-b-xs text-success">
-                                        {{($root.saldoIngresos.total_finalizado || $root.saldoIngresos.total_finalizados || 0) - ($root.saldoEgresos.total_finalizado || $root.saldoEgresos.total_finalizados || 0)|| 0  |  currency:"$":0}}
-                                    </h1>
-                                    <small>Saldo total a favor</small>
+                                <div class="box-data" ng-show="!loadingEgresos">
+                                    <div class="small">
+                                        <i class="fa fa-money"></i>Total Egresos
+                                    </div>
+                                    <div>
+                                        <h1 class="font-extra-bold m-t-xl m-b-xs text-danger">
+                                            {{$root.saldoEgresos.total_finalizado || $root.saldoEgresos.total_finalizados || 0  |  currency:"$":0 }}
+                                        </h1>
+                                        <small>Total de egresos</small>
+                                    </div>
+                                    <div class="small m-t-xl">
+                                        <i class="fa fa-money"></i> Periodo
+                                    </div>
                                 </div>
-                                <div class="small m-t-xl">
-                                    <i class="fa fa-money"></i> Periodo :
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <div class="box-loading" ng-show="loadingEgresos && loadingIngresos"> 
+                                    <div class="splash-title">
+                                        <img src="images/loading-bars.svg" width="64" height="64"> 
+                                    </div> 
+                                </div>
+                                <div class="box-data" ng-show="!loadingIngresos && !loadingEgresos">
+                                    <div class="small">
+                                        <i class="fa fa-money"></i> Saldo
+                                    </div>
+                                    <div>
+                                        <h1 class="font-extra-bold m-t-xl m-b-xs text-success">
+                                            {{($root.saldoIngresos.total_finalizado || $root.saldoIngresos.total_finalizados || 0) - ($root.saldoEgresos.total_finalizado || $root.saldoEgresos.total_finalizados || 0)|| 0  |  currency:"$":0}}
+                                        </h1>
+                                        <small>Saldo total a favor</small>
+                                    </div>
+                                    <div class="small m-t-xl">
+                                        <i class="fa fa-money"></i> Periodo :
+                                    </div>
                                 </div>
                             </div>
                         </div>

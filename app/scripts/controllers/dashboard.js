@@ -11,6 +11,8 @@ angular
 function dashboardCtrl($scope, $rootScope, api, menu, $modal, $stateParams, $timeout) {
     $scope.filter = {};
     $scope.modal = {};
+    $scope.loadingIngresos = true;
+
     $scope.openTo = function($event) {
         $event.preventDefault();
         $event.stopPropagation();
@@ -29,14 +31,19 @@ function dashboardCtrl($scope, $rootScope, api, menu, $modal, $stateParams, $tim
     };
 
     $scope.query = function(){
+        $scope.loadingIngresos = true;
+        $scope.loadingEgresos = true;
+
         api.saldosIngresos().add('saldos/consolidado/').add("periodo/" + $scope.selectedPeriodoInicial.id).add("/" + moment(new Date($scope.fechainicial)).format("YYYY-MM-DD")).add("/" + moment(new Date($scope.fechafinal)).format("YYYY-MM-DD")).get().then(function(response){
             $rootScope.saldoIngresos = response.data;
+            $scope.loadingIngresos = false;
         }).catch(function(e){
             $scope.loading = false;
         });
 
         api.saldosEgresos().add('saldos/consolidado/').add("periodo/" +  $scope.selectedPeriodoInicial.id).add("/" + moment(new Date($scope.fechainicial)).format("YYYY-MM-DD")).add("/" + moment(new Date($scope.fechafinal)).format("YYYY-MM-DD")).get().then(function(response){
             $rootScope.saldoEgresos = response.data;
+            $scope.loadingEgresos = false;
         }).catch(function(e){
             $scope.loading = false;
         });
@@ -84,6 +91,8 @@ function dashboardCtrl($scope, $rootScope, api, menu, $modal, $stateParams, $tim
     }
     
     $scope.load = function(){
+        $scope.loadingIngresos = true;
+        $scope.loadingEgresos = true;
 
         api.periodo().get().then(function(response){
             $scope.periodos = response.data;
@@ -98,7 +107,7 @@ function dashboardCtrl($scope, $rootScope, api, menu, $modal, $stateParams, $tim
 
             api.formasPagos().add('saldos/').add($scope.selectedPeriodoInicial.id).add("/").add($scope.selectedPeriodoInicial.id).get().then(function(response){
                 $scope.consolidado = response.data;
-                $scope.loading = false;
+                $rootScope.mainLoading = false;
             }).catch(function(e){
                 $scope.loading = false;
             });
@@ -107,12 +116,14 @@ function dashboardCtrl($scope, $rootScope, api, menu, $modal, $stateParams, $tim
 
             api.saldosIngresos().add('saldos/consolidado/').add("periodo/" + $scope.selectedPeriodoInicial.id).get().then(function(response){
                 $rootScope.saldoIngresos = response.data;
+                $scope.loadingIngresos = false;
             }).catch(function(e){
                 $scope.loading = false;
             });
 
             api.saldosEgresos().add('saldos/consolidado/').add("periodo/" +  $scope.selectedPeriodoInicial.id).get().then(function(response){
                 $rootScope.saldoEgresos = response.data;
+                $scope.loadingEgresos = false;
             }).catch(function(e){
                 $scope.loading = false;
             });

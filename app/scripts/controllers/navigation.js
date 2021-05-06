@@ -25,6 +25,8 @@ function navigationCtrl($scope, $rootScope, api, menu, $modal, $stateParams, $ti
      }
 
     $scope.load = function(){
+        $scope.loadingEgresos = true;
+
         api.periodo().get().then(function(response){
             $scope.periodos = response.data;
             $scope.selectedPeriodo = response.data.filter(function(p){
@@ -34,6 +36,7 @@ function navigationCtrl($scope, $rootScope, api, menu, $modal, $stateParams, $ti
             $scope.filter.periodo = $scope.selectedPeriodo.id;
             api.saldosIngresos().add('saldos/consolidado/').add("periodo/" + $scope.filter.periodo).get().then(function(response){
                 $rootScope.saldoIngresos = response.data;
+                $scope.loadingEgresos = false;
             }).catch(function(e){
                 $scope.loading = false;
             });
