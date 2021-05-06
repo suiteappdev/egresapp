@@ -9,9 +9,16 @@
             <h3>Listado de egresos<span class="pull-right"><div class="list-item-container">
             </div>
             <div>
-                <div class="list-item">
-                    <h2 class="no-margins font-extra-bold text-warning">{{saldoEgresos.total_pendiente_global | currency:"$"}}</h2>
-                    <small>Pendientes globales</small>
+                <div class="box-loading" ng-show="loadingEgresos"> 
+                    <div style="text-align: center;max-width: 500px;margin: 2% auto;padding: 10px;">
+                        <img src="images/loading-bars.svg" width="30" height="30"> 
+                    </div> 
+                </div>
+                <div class="box-data" ng-show="!loadingEgresos">
+                    <div class="list-item">
+                        <h2 class="no-margins font-extra-bold text-warning">{{saldoEgresos.total_pendiente_global | currency:"$"}}</h2>
+                        <small>Pendientes globales</small>
+                    </div>
                 </div>
             </div>
         </span></h3>
