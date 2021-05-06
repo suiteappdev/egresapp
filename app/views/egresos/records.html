@@ -19,22 +19,42 @@
             <br>
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="list-item">
-                        <h3 class="no-margins font-extra-bold text-success">{{saldoEgresos.total_finalizado  | currency:"$"}}</h3>
-                        <small>Finalizados</small>
+                    <div class="box-loading" ng-show="loadingEgresos"> 
+                        <div style="text-align: center;max-width: 500px;margin: 2% auto;padding: 10px;">
+                            <img src="images/loading-bars.svg" width="30" height="30"> 
+                        </div> 
+                    </div>
+                    <div class="box-data" ng-show="!loadingEgresos">
+                        <div class="list-item">
+                            <h3 class="no-margins font-extra-bold text-success">{{saldoEgresos.total_finalizado  | currency:"$"}}</h3>
+                            <small>Finalizados</small>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="list-item">
-                        <h3 class="no-margins font-extra-bold text-warning">{{saldoEgresos.total_pendiente | currency:"$"}}</h3>
-                        <small>Pendientes</small>
+                    <div class="box-loading" ng-show="loadingEgresos"> 
+                        <div style="text-align: center;max-width: 500px;margin: 2% auto;padding: 10px;">
+                            <img src="images/loading-bars.svg" width="30" height="30"> 
+                        </div> 
+                    </div>
+                    <div class="box-data" ng-show="!loadingEgresos">
+                        <div class="list-item">
+                            <h3 class="no-margins font-extra-bold text-warning">{{saldoEgresos.total_pendiente | currency:"$"}}</h3>
+                            <small>Pendientes</small>
+                        </div> 
                     </div>
                 </div>
-
                 <div class="col-lg-3">
-                    <div class="list-item">
-                        <h3 class="no-margins font-extra-bold text-success">{{(saldoEgresos.total_finalizado + saldoEgresos.total_pendiente) | currency:"$"}}</h3>
-                        <small>Total</small>
+                    <div class="box-loading" ng-show="loadingEgresos"> 
+                        <div style="text-align: center;max-width: 500px;margin: 2% auto;padding: 10px;">
+                            <img src="images/loading-bars.svg" width="30" height="30"> 
+                        </div> 
+                    </div>
+                    <div class="box-data" ng-show="!loadingEgresos">
+                        <div class="list-item">
+                            <h3 class="no-margins font-extra-bold text-success">{{(saldoEgresos.total_finalizado + saldoEgresos.total_pendiente) | currency:"$"}}</h3>
+                            <small>Total</small>
+                        </div>
                     </div>
                 </div>
             </div>

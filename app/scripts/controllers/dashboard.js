@@ -93,7 +93,7 @@ function dashboardCtrl($scope, $rootScope, api, menu, $modal, $stateParams, $tim
     $scope.load = function(){
         $scope.loadingIngresos = true;
         $scope.loadingEgresos = true;
-
+        
         api.periodo().get().then(function(response){
             $scope.periodos = response.data;
 

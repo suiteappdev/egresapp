@@ -1,9 +1,9 @@
-<div class="splash" ng-show="mainLoading"> 
+<div class="splash" ng-show="loadingDataView" ng-init="load()"> 
     <div class="splash-title">
         <img src="images/loading-bars.svg" width="64" height="64"> 
     </div> 
 </div>
-<div class="col-lg-12" ng-show="($root.ingresos.length > 0)">
+<div class="col-lg-12" ng-show="($root.ingresos  && $root.ingresos.length > 0)">
     <div class="hpanel">
         <div class="panel-body">
             <h3>Listado de Ingresos <span class="pull-right"><div class="list-item-container">
@@ -11,21 +11,42 @@
             <p>Puedes crear modificar y eliminar tus Ingresos.</p>
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="list-item">
-                        <h3 class="no-margins font-extra-bold text-success">{{saldoIngresos.total_finalizado  | currency:"$"}}</h3>
-                        <small>Finalizados</small>
+                    <div class="box-loading" ng-show="loadingIngresos"> 
+                        <div style="text-align: center;max-width: 500px;margin: 2% auto;padding: 10px;">
+                            <img src="images/loading-bars.svg" width="30" height="30"> 
+                        </div> 
+                    </div>
+                    <div class="box-data" ng-show="!loadingIngresos">
+                        <div class="list-item">
+                            <h3 class="no-margins font-extra-bold text-success">{{saldoIngresos.total_finalizado  | currency:"$"}}</h3>
+                            <small>Finalizados</small>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="list-item">
-                        <h3 class="no-margins font-extra-bold text-color3">{{saldoIngresos.total_pendiente  | currency:"$"}}</h3>
-                        <small>Pendientes</small>
+                    <div class="box-loading" ng-show="loadingIngresos"> 
+                        <div style="text-align: center;max-width: 500px;margin: 2% auto;padding: 10px;">
+                            <img src="images/loading-bars.svg" width="30" height="30"> 
+                        </div> 
+                    </div>
+                    <div class="box-data" ng-show="!loadingIngresos">
+                        <div class="list-item">
+                            <h3 class="no-margins font-extra-bold text-color3">{{saldoIngresos.total_pendiente  | currency:"$"}}</h3>
+                            <small>Pendientes</small>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="list-item">
-                        <h3 class="no-margins font-extra-bold text-success">{{saldoIngresos.total_finalizado  + saldoIngresos.total_pendiente  | currency:"$"}}</h3>
-                        <small>Total</small>
+                    <div class="box-loading" ng-show="loadingIngresos"> 
+                        <div style="text-align: center;max-width: 500px;margin: 2% auto;padding: 10px;">
+                            <img src="images/loading-bars.svg" width="30" height="30"> 
+                        </div> 
+                    </div>
+                    <div class="box-data" ng-show="!loadingIngresos">
+                        <div class="list-item">
+                            <h3 class="no-margins font-extra-bold text-success">{{saldoIngresos.total_finalizado  + saldoIngresos.total_pendiente  | currency:"$"}}</h3>
+                            <small>Total</small>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -33,7 +54,7 @@
     </div>
 </div>
 <div ng-init="load();">
-        <div ng-show="(!$root.ingresos || $root.ingresos.length == 0)" class="row"  style="display: flex;align-items: center;justify-content: center;width: 100%;height: 100vh;flex-direction: column;text-align: center;">
+        <div ng-show="($root.ingresos.length == 0)" class="row"  style="display: flex;align-items: center;justify-content: center;width: 100%;height: 100vh;flex-direction: column;text-align: center;">
                 <div class="col-lg-12">
                     <div>
                             <h3 class="m-b">Sin resultados, No hay ingresos aun.</h3>

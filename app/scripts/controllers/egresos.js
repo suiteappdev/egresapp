@@ -493,6 +493,7 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
 
     $scope.load = function(){
         $scope.loading = true;
+        $scope.loadingEgresos = true;
 
         if($stateParams.id){
             $scope.recordId = $stateParams.id;
@@ -515,6 +516,7 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
 
             api.saldosEgresos().add('saldos/consolidado/periodo/' + $scope.selectedPeriodo.id).get().then(function(response){
                 $rootScope.saldoEgresos = response.data;
+                $scope.loadingEgresos = false;
             }).catch(function(e){
                 $rootScope.loading = false;
             });
@@ -558,6 +560,7 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
     $scope.getSaldos = function(){
         api.saldosEgresos().add('saldos/consolidado/periodo/' + $scope.filter.periodo).get().then(function(response){
             $rootScope.saldoEgresos = response.data;
+            $scope.loadingEgresos = false;
         }).catch(function(e){
             $rootScope.loading = false;
         });

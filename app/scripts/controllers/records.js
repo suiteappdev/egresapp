@@ -155,17 +155,18 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             
             if(response  && response.data.length > 0){
                 $rootScope.ingresos = response.data;
-                $rootScope.mainLoading = false;
+                $scope.loadingDataView = false;
             }
-
-            $rootScope.mainLoading = false;
-
+            
         }).catch(function(e){
             $rootScope.mainLoading = false;
         });  
      }
     
     $scope.load = function(){
+        $scope.loadingIngresos = true;
+        $scope.loadingDataView = true;
+        $rootScope.mainLoading = true;
 
         if($stateParams.id){
             $scope.recordId = $stateParams.id;
@@ -198,7 +199,7 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
 
             api.saldosIngresos().add('saldos/consolidado/').add("periodo/" + $scope.selectedPeriodo.id).get().then(function(response){
                 $rootScope.saldoIngresos = response.data;
-                console.log("saldos ingresos",  response.data);
+                $scope.loadingIngresos = false;
             }).catch(function(e){
                 $scope.loading = false;
             });
@@ -225,7 +226,6 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
         }).catch(function(e){
             $scope.loading = false;
         });
-
 
         api.formasPagos().add("?_limit=-1").get().then(function(response){
             $scope.formasPagos = response.data;
