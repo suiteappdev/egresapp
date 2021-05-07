@@ -12,20 +12,26 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
     $scope.form = {};
     $scope.form.data = {};
 
-    api.estados_documentos().get().then(function(response){
+    api.estados_documentos().add("?_limit=-1").get().then(function(response){
         $scope.estados = response.data;
     }).catch(function(e){
         $rootScope.loading = false;
     });
 
-    api.categoria().get().then(function(response){
+    api.tipo_descuentos().add("?_limit=-1").get().then(function(response){
+        $scope.descuentos = response.data;
+    }).catch(function(e){
+        $scope.loading = false;
+    });
+
+    api.categoria().add("?_limit=-1").get().then(function(response){
         $scope.categorias = response.data;
         $rootScope.loading = false;
     }).catch(function(e){
         $rootScope.loading = false;
     });
 
-    api.terceros().get().then(function(response){
+    api.terceros().add("?_limit=-1").get().then(function(response){
         $scope.terceros = response.data;
         $rootScope.loading = false;
     }).catch(function(e){
@@ -53,6 +59,15 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
     $scope.openModalFilterFacturas = function(){
         var modal = $modal.open({
             templateUrl: 'views/reportes/filter_egresos_facturas.html',
+            controller : 'reportesCtrl',
+            size: 'lg',
+            scope : $scope
+        });
+    }
+
+    $scope.openModalFilterDiscount  = function(){
+        var modal = $modal.open({
+            templateUrl: 'views/reportes/filter_discount.html',
             controller : 'reportesCtrl',
             size: 'lg',
             scope : $scope
@@ -156,6 +171,95 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
             return s.id  == id;
         })[0]
    }
+
+   $scope.queryDiscount = function(){
+    var filter = "?";
+    $scope.loading = true;
+
+    if($scope.form.data.categoria){
+        filter += "categoriadto="+$scope.form.data.categoria+"&";
+    }
+
+    if($scope.form.data.tercero){
+        filter += "tercero="+$scope.form.data.tercero.id+"&";
+    }
+
+    if($scope.form.data.estadodocumento){
+        filter += "estadodocumento="+$scope.form.data.estadodocumento+"&";
+    }
+
+    api.egresos().add(filter).get().then(function(res){
+       $scope.records = res.data || [];
+       $scope.loading = false;
+
+       if($scope.records.length > 0){
+            var output = _($scope.records).groupBy('tercero.nombre').map(function(egresos, key){
+                var sumMes = function(data, mes){
+                    var total = 0;
+
+                    var rs = data.filter(function(e){
+
+                        if($scope.selectedEstado && $scope.selectedState.descripcion == "Finalizado"){
+                            if(e.fechaFinalizado &&  (moment(e.fechaFinalizado ).month() == mes)){
+                                return true && (e.descuento && e.descuento.filter(function(e){
+                                    if(e.observacionObj){
+                                        return $scope.form.data.descuento == e.observacionObj.id;
+                                    }else{
+                                        return false;
+                                    }
+                                }).length > 0);
+                            }
+                        }else{
+                            if(e.fechainicial &&  (moment(e.fechainicial ).month() == mes)){
+                                return true && (e.descuento && e.descuento.filter(function(e){
+                                    return $scope.form.data.descuento == e.observacionObj.id;
+                                }).length > 0);
+                            }
+                        }
+
+                        return false;
+                    });
+
+                    for (var index = 0; index < rs.length; index++) {
+                        var element = rs[index];
+                        if(element.descuento.length > 0){
+                            for (var i = 0;  i < element.descuento.length; i++) {
+                                var m = element.descuento[i];
+                                if($scope.form.data.descuento == m.observacionObj.id){
+                                    total = total + m.currency || 0;
+                                }
+                            }
+                        }
+                    }
+
+                    return $filter('currency')(total, '$', 0);
+                }
+
+                return {
+                    tercero : key,
+                    descuento : $scope.descuentos.filter(function(d){
+                        return d.id == $scope.form.data.descuento
+                    })[0].descripcion,
+                    ene : sumMes(egresos, 0),
+                    feb : sumMes(egresos, 1),
+                    mar : sumMes(egresos, 2),
+                    abr : sumMes(egresos, 3),
+                    may : sumMes(egresos, 4),
+                    jun : sumMes(egresos, 5),
+                    jul : sumMes(egresos, 6),
+                    ago : sumMes(egresos, 7),
+                    sep : sumMes(egresos, 8),
+                    oct : sumMes(egresos, 9),
+                    nov : sumMes(egresos, 10),
+                    dic : sumMes(egresos, 11)
+                }
+            }).value();
+
+            $scope.records = output;
+       }
+    });
+}
+
 
     
     $scope.queryEgreso = function(){
@@ -492,54 +596,12 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
      }
     
     $scope.load = function(){
-
-        if($stateParams.id){
-            $scope.recordId = $stateParams.id;
-
-            api.egresos($stateParams.id).get().then(function(response){
-                $scope.recordDetail = response.data;
-                $rootScope.loading = false;
-            }).catch(function(e){
-                $rootScope.loading = false;
-            });
-        }
-
-        api.egresos().get().then(function(response){
-            $rootScope.egresos = response.data;
-            $rootScope.loading = false;
-        }).catch(function(e){
-            $rootScope.loading = false;
-        });
-
-        api.periodo().get().then(function(response){
-            $scope.periodos = response.data;
-            console.log(response);
-            $rootScope.loading = false;
-        }).catch(function(e){
-            $rootScope.loading = false;
-        });
-
-        api.categoria().get().then(function(response){
-            $scope.categorias = response.data;
-            $rootScope.loading = false;
-        }).catch(function(e){
-            $rootScope.loading = false;
-        });
-
-        api.terceros().get().then(function(response){
-            $scope.terceros = response.data;
-            $rootScope.loading = false;
-        }).catch(function(e){
-            $rootScope.loading = false;
-        });
-
         api.estados_documentos().get().then(function(response){
             $scope.estados = response.data;
             $rootScope.loading = false;
         }).catch(function(e){
             $rootScope.loading = false;
         });
-
 
         api.formasPagos().get().then(function(response){
             $scope.formasPagos = response.data;
