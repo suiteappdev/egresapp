@@ -212,7 +212,11 @@ function reportesCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notif
                         }else{
                             if(e.fechainicial &&  (moment(e.fechainicial ).month() == mes)){
                                 return true && (e.descuento && e.descuento.filter(function(e){
-                                    return $scope.form.data.descuento == e.observacionObj.id;
+                                    if(e.observacionObj){
+                                        return $scope.form.data.descuento == e.observacionObj.id;
+                                    }else{
+                                        return false;
+                                    }
                                 }).length > 0);
                             }
                         }
