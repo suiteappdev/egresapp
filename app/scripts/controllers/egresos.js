@@ -8,7 +8,7 @@ angular
     .module('homer')
     .controller('egresosCtrl', egresosCtrl)
 
-function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify, sweetAlert) {
+function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify, sweetAlert, constants) {
     $scope.modal = null;
     $scope.referencias = [];
     $scope.uploading = false;
@@ -303,7 +303,7 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
         
             try {
                 axios
-                .post('http://190.157.105.92:1337/upload', formData, {
+                .post(constants.apiHost+ 'upload', formData, {
                   headers: { 'Content-Type': 'multipart/form-data' },
                 })
                 .then(function(res){
@@ -1070,7 +1070,11 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
                 }
 
             }
-            console.log($scope.form.data);
+            
+           $scope.form.data.archivo = $scope.form.data.archivo.map(function(f){
+               delete f.$$hashKey;
+               return f;
+           });
 
             api.egresos().post($scope.form.data).then(function(response){
                 $scope.getDocuments($scope.selectedPeriodo.id);

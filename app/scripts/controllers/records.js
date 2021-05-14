@@ -8,7 +8,7 @@ angular
     .module('homer')
     .controller('recordsCtrl', recordsCtrl)
 
-function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify, sweetAlert) {
+function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify, sweetAlert, constants) {
     $scope.modal = null;
     $scope.referencias = [];
     $scope.uploading = false;
@@ -98,7 +98,7 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
         
             try {
                 axios
-                .post('http://190.157.105.92:1337/upload', formData, {
+                .post(constants.apiHost+ 'upload', formData, {
                   headers: { 'Content-Type': 'multipart/form-data' },
                 })
                 .then(function(res){
