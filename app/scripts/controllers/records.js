@@ -151,7 +151,7 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
      });
 
      $scope.getDocuments = function(id){
-        api.ingresos().add("periodo/" + (id ? id : "")).get().then(function(response){
+        api.ingresos().add("?periodo=" + (id ? id : "")).get().then(function(response){
             
             if(response  && response.data.length > 0){
                 $rootScope.ingresos = response.data;

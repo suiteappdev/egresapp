@@ -356,7 +356,7 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
      });
 
      $scope.getDocuments = function(id){
-        api.egresos().add("periodo/" + (id ? id : "")).get().then(function(response){
+        api.egresos().add("?periodo=" + (id ? id : "")).get().then(function(response){
             if(response  && response.data.length > 0){
                 $rootScope.egresos = response.data;
                 $rootScope.mainLoading = false;
@@ -1005,7 +1005,6 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             $rootScope.loading = true;
 
             $scope.form.data.user = $rootScope.user._id;
-
             if($scope.form.data.tercero){
                 $scope.form.data.tercero = $scope.form.data.tercero._id;
             }
@@ -1071,7 +1070,7 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
                 }
 
             }
-
+            console.log($scope.form.data);
 
             api.egresos().post($scope.form.data).then(function(response){
                 $scope.getDocuments($scope.selectedPeriodo.id);
