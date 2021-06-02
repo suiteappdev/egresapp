@@ -357,15 +357,8 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
 
      $scope.getDocuments = function(id){
         api.egresos().add("?periodo=" + (id ? id : "")).get().then(function(response){
-            if(response  && response.data.length > 0){
-                $rootScope.egresos = response.data;
+                $rootScope.egresos = response.data || [];
                 $rootScope.mainLoading = false;
-
-                if(!$rootScope.egresos || $rootScope.egresos.length == 0){
-                    $scope.loadingDataView = false;
-                    $rootScope.loadingEhgresos = false;
-                }
-            }
         }).catch(function(e){
             $rootScope.mainLoading = false;
         });  
@@ -600,11 +593,8 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
         filter +="_limit=-1"
 
         api.egresos().add(filter).get().then(function(response){
-            if(response  && response.data.length > 0){
-                $rootScope.egresos = response.data;
-                $rootScope.mainLoading  = false;
-            }
-            
+            $rootScope.egresos = response.data;
+            $rootScope.mainLoading  = false;
             $scope.loading = false;
         }).catch(function(e){
             $scope.loading = false;
