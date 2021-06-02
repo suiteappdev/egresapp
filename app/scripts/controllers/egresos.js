@@ -360,6 +360,11 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             if(response  && response.data.length > 0){
                 $rootScope.egresos = response.data;
                 $rootScope.mainLoading = false;
+
+                if(!$rootScope.egresos || $rootScope.egresos.length == 0){
+                    $scope.loadingDataView = false;
+                    $rootScope.loadingEhgresos = false;
+                }
             }
         }).catch(function(e){
             $rootScope.mainLoading = false;

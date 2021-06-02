@@ -156,10 +156,16 @@ function recordsCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
             if(response  && response.data.length > 0){
                 $rootScope.ingresos = response.data;
                 $scope.loadingDataView = false;
+                
+                if(!$rootScope.ingresos || $rootScope.ingresos.length == 0){
+                    $scope.loadingDataView = false;
+                    $rootScope.loadingIngresos = false;
+                }
             }
             
         }).catch(function(e){
             $rootScope.mainLoading = false;
+            $scope.loadingDataView = false;
         });  
      }
     
