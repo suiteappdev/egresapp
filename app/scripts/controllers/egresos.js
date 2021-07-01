@@ -18,12 +18,28 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
     $scope.form = {};
     $scope.form.data = {};
     $scope.form.data.archivo = [];
-    $scope.filter = {};
+
+    moment.locale("es");
+
+    $scope.filter = {
+        fini : moment().startOf('month').format('YYYY-MM-DD'),
+        fend : moment().endOf('month').format('YYYY-MM-DD')
+    };
 
     menu.showMenu();
 
     $scope.uploadFiles = function(){
         $('#files').click();
+    }
+
+    $scope.search = function(){
+        api.egresos().add("/range/" + $scope.filter.fini).add("/"+$scope.filter.fend).get().then(function(response){
+            $rootScope.egresos = response.data;
+            $rootScope.mainLoading  = false;
+            $scope.loading = false;
+        }).catch(function(e){
+            $scope.loading = false;
+        });  
     }
 
     $scope.totalize = function(movimiento){
@@ -564,6 +580,10 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
         });
     }
 
+    $scope.outdated = function(){
+        this.record.isOutdated = moment(this.record.periodo.ffinal).isBefore(moment(new Date()))
+    }
+
     $scope.getCategory = function(value){
        $scope.terceros = angular.copy($scope.tercerosCatalogo.filter(function(t){
            return  t.categoriadto.id == value;
@@ -666,6 +686,19 @@ function egresosCtrl($scope, $rootScope, api, menu, $modal, $stateParams, notify
         $scope.from = true;
     };
 
+    $scope.openFromFilter = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.fromFilter = true;
+    };
+
+    $scope.openToFilter = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.toFilter = true;
+    };
     $scope.dateOptions = {
         formatYear: 'yy',
         startingDay: 1
