@@ -49,7 +49,7 @@
     </div>
 </div>
 <div ng-init="load();">
-        <div ng-show="($root.ingresos.length == 0)" class="row"  style="display: flex;align-items: center;justify-content: center;width: 100%;height: 100vh;flex-direction: column;text-align: center;">
+        <div ng-show="($root.ingresos.length == 0 || !$root.ingresos)" class="row"  style="display: flex;align-items: center;justify-content: center;width: 100%;height: 100vh;flex-direction: column;text-align: center;">
                 <div class="col-lg-12">
                     <div>
                             <h3 class="m-b">Sin resultados, No hay ingresos aun.</h3>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
         </div>
-        <div class="col-lg-12" ng-show="($root.ingresos.length > 0)">
+        <div class="col-lg-12" ng-show="($root.ingresos && $root.ingresos.length > 0)">
         <div class="hpanel">
             <div class="panel-body">
             <div class="row">
